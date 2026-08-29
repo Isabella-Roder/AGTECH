@@ -30,3 +30,7 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
 
     return resposta.json();
 }
+
+export function removerToken(): void {
+    localStorage.removeItem("token");
+}
