@@ -95,6 +95,10 @@ public class PropriedadeRural {
         return areaTotalHectares;
     }
 
+    public boolean isAtivo() {
+        return ativo;
+    }
+
     public LocalDateTime getCriadoEm() {
         return criadoEm;
     }

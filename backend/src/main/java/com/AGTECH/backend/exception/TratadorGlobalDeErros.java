@@ -1,12 +1,14 @@
 package com.AGTECH.backend.exception;
 
 import java.time.Instant;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -34,6 +36,20 @@ public class TratadorGlobalDeErros {
         return criarResposta(
                 HttpStatus.UNAUTHORIZED,
                 "Credenciais inválidas.",
+                requisicao.getRequestURI());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErroApi> tratarValidacao(
+            MethodArgumentNotValidException excecao,
+            HttpServletRequest requisicao) {
+        String mensagem = excecao.getBindingResult().getFieldErrors().stream()
+                .map(erro -> erro.getField() + ": " + erro.getDefaultMessage())
+                .collect(Collectors.joining("; "));
+
+        return criarResposta(
+                HttpStatus.BAD_REQUEST,
+                mensagem,
                 requisicao.getRequestURI());
     }
 
