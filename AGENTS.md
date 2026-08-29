@@ -337,13 +337,22 @@ Exemplo:
 
 ## V0.1 --- Fundação
 
--   usuário;
--   autenticação;
--   propriedade rural;
+-   usuário; ✅ concluído (entidade, migration, repository, service,
+    DTOs, controller)
+-   autenticação; ✅ concluído (JwtService, UsuarioDetailsService,
+    AuthController com login, JwtAuthFilter, testado ponta a ponta)
+-   propriedade rural; 🔶 em andamento (entidade e migration prontas;
+    faltam repository, service e controller)
 -   talhão;
 -   cultura;
 -   safra;
 -   plantio.
+
+Também já modelada, junto de propriedade rural, a entidade
+`UsuarioPropriedadeAcesso` (vínculo N:N imutável entre usuário e
+propriedade, com papel `PROPRIETARIO`/`GESTOR`/`OPERADOR`), que é a base
+da autorização por recurso — ver ADR em
+`docs/architecture/0001-modelagem-v0.1-fundacao.md`.
 
 ## V0.2 --- Insumos e estoque
 
