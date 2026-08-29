@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { login } from "../api/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import "../styles/auth.css"
 
 interface LoginLocationState{
     mensagem?: string;
@@ -34,33 +35,74 @@ export function LoginPage() {
     }
 
     return (
-        <main>
-            <h1>Entrar</h1>
+        <main className="auth-page">
+            <section className="auth-card">
+                <h1>Entrar</h1>
+                <p className="auth-subtitle">
+                    Acesse sua gestão rural
+                </p>
 
-            {mensagem && <p role="status">{mensagem}</p>}
+                {mensagem && (
+                    <p
+                        className="auth-message auth-message--success"
+                        role="status"
+                    >
+                        {mensagem}
+                    </p>
+                )}
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">E-mail</label>
-                    <input id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" required />
-                </div>
+                <form className="auth-form" onSubmit={handleSubmit}>
+                    <div className="auth-field">
+                        <label htmlFor="email">E-mail</label>
+                        <input
+                            id="email"
+                            type="email"
+                            value={email}
+                            onChange={(evento) =>
+                                setEmail(evento.target.value)
+                            }
+                            autoComplete="email"
+                            required
+                        />
+                    </div>
 
-                <div>
-                    <label htmlFor="senha">Senha</label>
-                    <input id="senha" name="senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} autoComplete="current-password" required />
-                </div>
+                    <div className="auth-field">
+                        <label htmlFor="senha">Senha</label>
+                        <input
+                            id="senha"
+                            type="password"
+                            value={senha}
+                            onChange={(evento) =>
+                                setSenha(evento.target.value)
+                            }
+                            autoComplete="current-password"
+                            required
+                        />
+                    </div>
 
-                {erro && <p role="alert">{erro}</p>}
+                    {erro && (
+                        <p
+                            className="auth-message auth-message--error"
+                            role="alert"
+                        >
+                            {erro}
+                        </p>
+                    )}
 
-                <button type="submit" disabled={enviando}>
-                    {enviando ? "Entrando...": "Entrar"}
-                </button>
-            </form>
+                    <button
+                        className="auth-button"
+                        type="submit"
+                        disabled={enviando}
+                    >
+                        {enviando ? "Entrando..." : "Entrar"}
+                    </button>
+                </form>
 
-            <p>
-                Ainda não possui uma conta?{" "}
-                <Link to="/cadastro">Criar conta</Link>
-            </p>
+                <p className="auth-footer">
+                    Ainda não possui uma conta?{" "}
+                    <Link to="/cadastro">Criar conta</Link>
+                </p>
+            </section>
         </main>
     );
 }

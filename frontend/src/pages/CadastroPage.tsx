@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { cadastrarUsuario } from "../api/usuarios";
+import "../styles/auth.css";
 
 export function CadastroPage() {
     const [nome, setNome] = useState("");
@@ -44,42 +45,107 @@ export function CadastroPage() {
     }
 
     return (
-        <main>
-            <h1>Criar conta</h1>
+        <main className="auth-page">
+            <section className="auth-card">
+                <h1>Criar conta</h1>
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="nome">Nome</label>
-                    <input id="nome" name="nome" type="text" value={nome} onChange={(evento) => setNome(evento.target.value)} minLength={3} maxLength={80} autoComplete="name" required/>
-                </div>
+                <p className="auth-subtitle">
+                    Comece a organizar sua gestão rural
+                </p>
 
-                <div>
-                    <label htmlFor="email">E-mail</label>
-                    <input id="email" name="email" type="text" value={email} onChange={(evento) => setEmail(evento.target.value)} autoComplete="email" required />
-                </div>
+                <form className="auth-form" onSubmit={handleSubmit}>
+                    <div className="auth-field">
+                        <label htmlFor="nome">Nome</label>
+                        <input
+                            id="nome"
+                            name="nome"
+                            type="text"
+                            value={nome}
+                            onChange={(evento) =>
+                                setNome(evento.target.value)
+                            }
+                            minLength={3}
+                            maxLength={80}
+                            autoComplete="name"
+                            required
+                        />
+                    </div>
 
-                <div>
-                    <label htmlFor="senha">Senha</label>
-                    <input id="senha" name="senha" type="password" value={senha} onChange={(evento) => setSenha(evento.target.value)} minLength={8} maxLength={60} autoComplete="new-password" required />
-                </div>
+                    <div className="auth-field">
+                        <label htmlFor="email">E-mail</label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={email}
+                            onChange={(evento) =>
+                                setEmail(evento.target.value)
+                            }
+                            autoComplete="email"
+                            required
+                        />
+                    </div>
 
-                <div>
-                    <label htmlFor="confirmacaoSenha">Confirme a senha</label>
-                    <input id="confirmacaoSenha" name="confirmacaoSenha" type="password" value={confirmacaoSenha} onChange={(evento) => setConfirmacaoSenha(evento.target.value)} minLength={8} maxLength={60} autoComplete="new-password" required />
-                </div>
+                    <div className="auth-field">
+                        <label htmlFor="senha">Senha</label>
+                        <input
+                            id="senha"
+                            name="senha"
+                            type="password"
+                            value={senha}
+                            onChange={(evento) =>
+                                setSenha(evento.target.value)
+                            }
+                            minLength={8}
+                            maxLength={60}
+                            autoComplete="new-password"
+                            required
+                        />
+                    </div>
 
-                {erro && (
-                    <p role="alert">{erro}</p>
-                )}
+                    <div className="auth-field">
+                        <label htmlFor="confirmacaoSenha">
+                            Confirme a senha
+                        </label>
 
-                <button type="submit" disabled={enviado}>
-                    {enviado ? "Criando conta...": "Criar conta"}
-                </button>
-            </form>
+                        <input
+                            id="confirmacaoSenha"
+                            name="confirmacaoSenha"
+                            type="password"
+                            value={confirmacaoSenha}
+                            onChange={(evento) =>
+                                setConfirmacaoSenha(evento.target.value)
+                            }
+                            minLength={8}
+                            maxLength={60}
+                            autoComplete="new-password"
+                            required
+                        />
+                    </div>
 
-            <p>
-                Já possui uma conta? <Link to="/">Entrar</Link>
-            </p>
+                    {erro && (
+                        <p
+                            className="auth-message auth-message--error"
+                            role="alert"
+                        >
+                            {erro}
+                        </p>
+                    )}
+
+                    <button
+                        className="auth-button"
+                        type="submit"
+                        disabled={enviado}
+                    >
+                        {enviado ? "Criando conta..." : "Criar conta"}
+                    </button>
+                </form>
+
+                <p className="auth-footer">
+                    Já possui uma conta?{" "}
+                    <Link to="/">Entrar</Link>
+                </p>
+            </section>
         </main>
-    )
+    );
 }
