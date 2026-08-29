@@ -19,6 +19,16 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
 
     const resposta = await fetch(`${API_BASE_URL}${path}`, {...options, headers});
 
+    if (resposta.status === 401) {
+        removerToken();
+
+        if (window.location.pathname !== "/") {
+            window.location.replace("/");
+        }
+
+        throw new Error("Sua sessão expirou. Entre novamente.");
+    }
+
     if (!resposta.ok) {
         const erro = await resposta.json().catch(() => null);
         throw new Error(erro?.mensagem ?? `Erro ${resposta.status}`);
