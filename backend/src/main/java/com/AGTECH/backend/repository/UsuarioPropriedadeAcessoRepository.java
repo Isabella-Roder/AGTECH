@@ -11,6 +11,8 @@ public interface UsuarioPropriedadeAcessoRepository extends JpaRepository<Usuari
     
     List<UsuarioPropriedadeAcesso> findByUsuarioId(Long usuarioId);
 
+    List<UsuarioPropriedadeAcesso> findByPropriedadeId(Long propriedadeId);
+
     Optional<UsuarioPropriedadeAcesso> findByUsuarioIdAndPropriedadeId(Long usuarioId, Long propriedadeId);
 
     boolean existsByUsuarioIdAndPropriedadeId(Long usuarioId, Long propriedadeId);
