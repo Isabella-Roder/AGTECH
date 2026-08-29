@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { listarMinhasPropriedades, type Propriedade } from "../api/propriedades";
 import { removerToken } from "../api/cliente";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/propriedades.css"
 
 export function PropriedadesPage() {
@@ -10,6 +10,12 @@ export function PropriedadesPage() {
     const [carregando, setCarregando] = useState(true);
 
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const mensagem = (
+        location.state as {mensagem?: string} | null
+    ) ?.mensagem;
 
     useEffect(() => {
         listarMinhasPropriedades()
@@ -23,8 +29,6 @@ export function PropriedadesPage() {
         navigate("/", {replace: true});
     }
 
-    if (erro) return <p>{erro}</p>;
-
     return (
         <main className="propriedades-page">
             <div className="propriedades-container">
@@ -37,14 +41,22 @@ export function PropriedadesPage() {
                         </p>
                     </div>
 
-                    <button
-                        className="logout-button"
-                        type="button"
-                        onClick={logout}
-                    >
-                        Sair
-                    </button>
+                    <div className="propriedade-actions">
+                        <button className="nova-propriedade-button" type="button" onClick={() => navigate("/propriedades/nova")}>
+                            + Nova propriedade
+                        </button>
+
+                        <button className="logout-button" type="button" onClick={logout}>
+                            Sair
+                        </button>
+                    </div>
                 </header>
+
+                {mensagem && (
+                    <p className="propriedades-sucesso" role="status">
+                        {mensagem}
+                    </p>
+                )}
 
                 {carregando && (
                     <p

@@ -6,6 +6,7 @@ import { PropriedadesPage } from './pages/PropriedadesPage.tsx';
 import { RotaProtegida } from './RotaProtegida.tsx'
 import './index.css'
 import { CadastroPage } from './pages/CadastroPage.tsx';
+import { CadastroPropriedadePage } from './pages/CadastroPropriedadePage.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -21,6 +22,8 @@ createRoot(document.getElementById('root')!).render(
               <PropriedadesPage/>
             </RotaProtegida>
           }/>
+
+          <Route path="/propriedades/nova" element={<RotaProtegida><CadastroPropriedadePage/></RotaProtegida>} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

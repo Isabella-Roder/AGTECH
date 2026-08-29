@@ -35,9 +35,10 @@ public class PropriedadeRuralController {
 
     @PostMapping
     public ResponseEntity<PropriedadeResponse> cadastrar(
-        @Valid @RequestBody CadastroPropriedadeRequest request
+        @Valid @RequestBody CadastroPropriedadeRequest request,
+        @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
-        PropriedadeResponse response = propriedadeRuralService.cadastrar(request);
+        PropriedadeResponse response = propriedadeRuralService.cadastrar(request, usuarioDetails.getId());
 
         URI localizar = URI.create("/api/propriedades/" + response.id());
 

@@ -7,23 +7,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.AGTECH.backend.dtos.CadastroPropriedadeRequest;
 import com.AGTECH.backend.dtos.PropriedadeResponse;
+import com.AGTECH.backend.enums.PapelAcesso;
 import com.AGTECH.backend.exception.RegraDeNegocioException;
 import com.AGTECH.backend.models.PropriedadeRural;
+import com.AGTECH.backend.models.Usuario;
+import com.AGTECH.backend.models.UsuarioPropriedadeAcesso;
 import com.AGTECH.backend.repository.PropriedadeRuralRepository;
 import com.AGTECH.backend.repository.UsuarioPropriedadeAcessoRepository;
+import com.AGTECH.backend.repository.UsuarioRepository;
 
 @Service
 public class PropriedadeRuralService {
     
     private final PropriedadeRuralRepository propriedadeRuralRepository;
     private final UsuarioPropriedadeAcessoRepository acessoRepository;
+    private final UsuarioRepository usuarioRepository;
 
     public PropriedadeRuralService(
         PropriedadeRuralRepository propriedadeRuralRepository,
-        UsuarioPropriedadeAcessoRepository acessoRepository
+        UsuarioPropriedadeAcessoRepository acessoRepository,
+        UsuarioRepository usuarioRepository
     ) {
         this.propriedadeRuralRepository = propriedadeRuralRepository;
         this.acessoRepository = acessoRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     private PropriedadeRural buscarEntidade(Long id) {
@@ -32,7 +39,10 @@ public class PropriedadeRuralService {
     }
 
     @Transactional
-    public PropriedadeResponse cadastrar(CadastroPropriedadeRequest request) {
+    public PropriedadeResponse cadastrar(CadastroPropriedadeRequest request, Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+            .orElseThrow(() -> new RegraDeNegocioException("Usuario não encontrado com ID: " + usuarioId));
+
         PropriedadeRural propriedade = new PropriedadeRural();
         propriedade.setNome(request.nome());
         propriedade.setMunicipio(request.municipio());
@@ -40,6 +50,9 @@ public class PropriedadeRuralService {
         propriedade.setAreaTotalHectares(request.areaTotalHectares());
 
         PropriedadeRural salva = propriedadeRuralRepository.save(propriedade);
+
+        UsuarioPropriedadeAcesso acesso = new UsuarioPropriedadeAcesso(usuario, salva, PapelAcesso.PROPRIETARIO);
+        acessoRepository.save(acesso);
 
         return PropriedadeResponse.from(salva);
     }
