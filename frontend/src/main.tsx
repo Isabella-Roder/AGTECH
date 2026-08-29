@@ -5,12 +5,15 @@ import { LoginPage } from './pages/LoginPage.tsx'
 import { PropriedadesPage } from './pages/PropriedadesPage.tsx';
 import { RotaProtegida } from './RotaProtegida.tsx'
 import './index.css'
+import { CadastroPage } from './pages/CadastroPage.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<LoginPage/>} />
+        <Route path='/cadastro' element={<CadastroPage/>} />
+
         <Route
           path='/propriedades'
           element={

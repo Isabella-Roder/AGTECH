@@ -1,8 +1,10 @@
 package com.AGTECH.backend.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.AGTECH.backend.dtos.CadastroPropriedadeRequest;
 import com.AGTECH.backend.dtos.PropriedadeResponse;
+import com.AGTECH.backend.security.UsuarioDetails;
 import com.AGTECH.backend.service.PropriedadeRuralService;
 
 import jakarta.validation.Valid;
@@ -68,5 +71,12 @@ public class PropriedadeRuralController {
         @PathVariable Long id
     ) {
         return ResponseEntity.ok(propriedadeRuralService.buscarPorId(id));
+    }
+
+    @GetMapping("/minhas")
+    public ResponseEntity<List<PropriedadeResponse>> listarMinhas(
+        @AuthenticationPrincipal UsuarioDetails usuarioDetails
+    ) {
+        return ResponseEntity.ok(propriedadeRuralService.listarMinhas(usuarioDetails.getId()));
     }
 }

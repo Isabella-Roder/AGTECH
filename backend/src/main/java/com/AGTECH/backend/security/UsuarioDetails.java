@@ -44,4 +44,8 @@ public class UsuarioDetails implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {return true;}
+
+    public Long getId() {
+        return usuario.getId();
+    }
 }

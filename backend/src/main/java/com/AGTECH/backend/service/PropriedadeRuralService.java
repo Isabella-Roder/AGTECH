@@ -1,5 +1,7 @@
 package com.AGTECH.backend.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,16 +10,20 @@ import com.AGTECH.backend.dtos.PropriedadeResponse;
 import com.AGTECH.backend.exception.RegraDeNegocioException;
 import com.AGTECH.backend.models.PropriedadeRural;
 import com.AGTECH.backend.repository.PropriedadeRuralRepository;
+import com.AGTECH.backend.repository.UsuarioPropriedadeAcessoRepository;
 
 @Service
 public class PropriedadeRuralService {
     
     private final PropriedadeRuralRepository propriedadeRuralRepository;
+    private final UsuarioPropriedadeAcessoRepository acessoRepository;
 
     public PropriedadeRuralService(
-        PropriedadeRuralRepository propriedadeRuralRepository
+        PropriedadeRuralRepository propriedadeRuralRepository,
+        UsuarioPropriedadeAcessoRepository acessoRepository
     ) {
         this.propriedadeRuralRepository = propriedadeRuralRepository;
+        this.acessoRepository = acessoRepository;
     }
 
     private PropriedadeRural buscarEntidade(Long id) {
@@ -67,5 +73,11 @@ public class PropriedadeRuralService {
     @Transactional(readOnly = true)
     public PropriedadeResponse buscarPorId(Long id) {
         return PropriedadeResponse.from(buscarEntidade(id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<PropriedadeResponse> listarMinhas(Long usuarioId) {
+        return acessoRepository.findByUsuarioId(usuarioId)
+            .stream().map(acesso -> PropriedadeResponse.from(acesso.getPropriedade())).toList();
     }
 }
