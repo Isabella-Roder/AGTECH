@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { listarMinhasPropriedades, type Propriedade } from "../api/propriedades";
 import { removerToken } from "../api/cliente";
 import { useNavigate } from "react-router-dom";
+import "../styles/propriedades.css"
 
 export function PropriedadesPage() {
     const [propriedades, setPropriedades] = useState<Propriedade[]>([]);
@@ -24,35 +25,88 @@ export function PropriedadesPage() {
 
     if (erro) return <p>{erro}</p>;
 
-    return(
-        <main>
-            <header>
-                <h1>Minhas propriedades</h1>
-                <button type="button" onClick={logout}>
-                    Sair
-                </button>
-            </header>
+    return (
+        <main className="propriedades-page">
+            <div className="propriedades-container">
+                <header className="propriedades-header">
+                    <div>
+                        <h1>Minhas propriedades</h1>
 
-            {carregando && <p>Carregando propriedades...</p>}
+                        <p className="propriedades-subtitle">
+                            Consulte as propriedades rurais vinculadas à sua conta.
+                        </p>
+                    </div>
 
-            {erro && <p role="alert">{erro}</p>}
+                    <button
+                        className="logout-button"
+                        type="button"
+                        onClick={logout}
+                    >
+                        Sair
+                    </button>
+                </header>
 
-            {!carregando && !erro && propriedades.length === 0 && (
-                <p>Nenhuma propriedade encontrada.</p>
-            )}
+                {carregando && (
+                    <p
+                        className="propriedades-feedback"
+                        role="status"
+                    >
+                        Carregando propriedades...
+                    </p>
+                )}
 
-            {!carregando && !erro && propriedades.length > 0 &&(
-                <ul>
-                    {propriedades.map((propriedade) => (
-                        <li key={propriedade.id}>
-                            {propriedade.nome} -{" "}
-                            {propriedade.municipio}/
-                            {propriedade.estado} -{" "}
-                            {propriedade.areaTotalHectares} ha
-                        </li>
-                    ))}
-                </ul>
-            )}
+                {erro && (
+                    <p
+                        className="
+                            propriedades-feedback
+                            propriedades-feedback--erro
+                        "
+                        role="alert"
+                    >
+                        {erro}
+                    </p>
+                )}
+
+                {!carregando && !erro && propriedades.length === 0 && (
+                    <p className="propriedades-feedback">
+                        Nenhuma propriedade encontrada.
+                    </p>
+                )}
+
+                {!carregando && !erro && propriedades.length > 0 && (
+                    <ul className="propriedades-grid">
+                        {propriedades.map((propriedade) => (
+                            <li
+                                className="propriedade-card"
+                                key={propriedade.id}
+                            >
+                                <h2>{propriedade.nome}</h2>
+
+                                <p>
+                                    <strong>Localização:</strong>{" "}
+                                    {propriedade.municipio}/
+                                    {propriedade.estado}
+                                </p>
+
+                                <p>
+                                    <strong>Área total:</strong>{" "}
+                                    {propriedade.areaTotalHectares} ha
+                                </p>
+
+                                <span
+                                    className={
+                                        propriedade.ativo
+                                            ? "propriedade-status propriedade-status--ativa"
+                                            : "propriedade-status propriedade-status--inativa"
+                                    }
+                                >
+                                    {propriedade.ativo ? "Ativa" : "Inativa"}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
         </main>
     );
 }
