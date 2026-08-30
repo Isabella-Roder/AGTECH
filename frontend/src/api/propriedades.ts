@@ -30,3 +30,10 @@ export function cadastrarPropriedade(dados: CadastroPropriedade,): Promise<Propr
 export function buscarPropriedadePorId(id: number): Promise<Propriedade> {
     return apiFetch<Propriedade>(`/api/propriedades/${id}`);
 }
+
+export function atualizarPropriedade(id: number, dados: CadastroPropriedade,): Promise<Propriedade> {
+    return apiFetch<Propriedade>(`/api/propriedades/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(dados)
+    });
+}

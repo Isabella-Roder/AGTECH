@@ -17,6 +17,7 @@ import { PropriedadesPage } from "./pages/PropriedadesPage";
 
 import "./index.css";
 import { DetalhesPropriedadePage } from "./pages/DetalhesPropriedadePage";
+import { EditarPropriedadePage } from "./pages/EditarPropriedadePage";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -50,6 +51,11 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                         path="/propriedades/:id"
                         element={<DetalhesPropriedadePage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:id/editar"
+                        element={<EditarPropriedadePage />}
                     />
                     
                 </Route>

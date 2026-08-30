@@ -6,27 +6,24 @@ import "../styles/detalhes-propriedade.css";
 export function DetalhesPropriedadePage() {
     const [propriedade, setPropriedade] = useState<Propriedade | null>(null);
     const [carregando, setCarregando] = useState(true);
-    const [erro, setErro] = useState<String | null>(null);
+    const [erro, setErro] = useState<string | null>(null);
     const [tentativa, setTentativa] = useState(0);
     
     const { id } = useParams();
     const navigate = useNavigate();
+    const propriedadeId = Number(id);
+    const idValido = Number.isInteger(propriedadeId) && propriedadeId > 0;
 
     useEffect(() => {
-        const propriedadeId = Number(id);
         let componenteAtivo = true;
 
-        if (!Number.isInteger(propriedadeId) || propriedadeId <= 0) {
-            setErro("Identificador da propriedade inválido.");
-            setCarregando(false);
+        if (!idValido) {
             return;
         }
 
-        setCarregando(true);
-        setErro(null);
-
         buscarPropriedadePorId(propriedadeId).then((propriedadeRecebida) => {
             if (componenteAtivo) {
+                setErro(null);
                 setPropriedade(propriedadeRecebida);
             }
         })
@@ -48,7 +45,31 @@ export function DetalhesPropriedadePage() {
         return () => {
             componenteAtivo = false;
         };
-    }, [id, tentativa]);
+    }, [idValido, propriedadeId, tentativa]);
+
+    function tentarNovamente() {
+        setCarregando(true);
+        setErro(null);
+        setTentativa((valor) => valor + 1);
+    }
+
+    if (!idValido) {
+        return (
+            <main className="property-details-page">
+                <div
+                    className="property-details-feedback property-details-feedback--error"
+                    role="alert"
+                >
+                    <h1>Identificador inválido</h1>
+                    <p>Não foi possível identificar a propriedade.</p>
+
+                    <button type="button" onClick={() => navigate("/propriedades")}>
+                        Voltar
+                    </button>
+                </div>
+            </main>
+        );
+    }
 
     if (carregando) {
         return (
@@ -73,7 +94,7 @@ export function DetalhesPropriedadePage() {
                             Voltar
                         </button>
 
-                        <button type="button" onClick={() => setTentativa((valor) => valor + 1)}>
+                        <button type="button" onClick={tentarNovamente}>
                             Tentar novamente
                         </button>
                     </div>
@@ -112,13 +133,27 @@ export function DetalhesPropriedadePage() {
                     </div>
                 </div>
 
-                <span className={propriedade.ativo
-                        ? "property-details-status property-details-status--active"
-                        : "property-details-status property-details-status--inactive"
-                    }
-                >
-                    {propriedade.ativo ? "Ativa" : "Inativa"}
-                </span>
+                <div className="property-details-actions">
+                    <span
+                        className={
+                            propriedade.ativo
+                                ? "property-details-status property-details-status--active"
+                                : "property-details-status property-details-status--inactive"
+                        }
+                    >
+                        {propriedade.ativo ? "Ativa" : "Inativa"}
+                    </span>
+
+                    <button
+                        className="property-details-edit"
+                        type="button"
+                        onClick={() =>
+                            navigate(`/propriedades/${propriedade.id}/editar`)
+                        }
+                    >
+                        Editar propriedade
+                    </button>
+                </div>
             </header>
 
             <section className="property-details-grid" aria-label="Informações da propriedade">

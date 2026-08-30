@@ -212,6 +212,7 @@ export function PropriedadesPage() {
                                 ? "Ativa"
                                 : "Inativa"}
                         </span>
+                        
                     </header>
 
                     <h3>{propriedade.nome}</h3>
