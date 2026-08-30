@@ -1,30 +1,57 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { LoginPage } from './pages/LoginPage.tsx'
-import { PropriedadesPage } from './pages/PropriedadesPage.tsx';
-import { RotaProtegida } from './RotaProtegida.tsx'
-import './index.css'
-import { CadastroPage } from './pages/CadastroPage.tsx';
-import { CadastroPropriedadePage } from './pages/CadastroPropriedadePage.tsx';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import {
+    BrowserRouter,
+    Navigate,
+    Route,
+    Routes,
+} from "react-router-dom";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<LoginPage/>} />
-        <Route path='/cadastro' element={<CadastroPage/>} />
+import { AppLayout } from "./components/layout/AppLayout";
+import { RotaProtegida } from "./RotaProtegida";
+import { CadastroPage } from "./pages/CadastroPage";
+import { CadastroPropriedadePage } from "./pages/CadastroPropriedadePage";
+import { LoginPage } from "./pages/LoginPage";
+import { PropriedadesPage } from "./pages/PropriedadesPage";
 
-        <Route
-          path='/propriedades'
-          element={
-            <RotaProtegida>
-              <PropriedadesPage/>
-            </RotaProtegida>
-          }/>
+import "./index.css";
 
-          <Route path="/propriedades/nova" element={<RotaProtegida><CadastroPropriedadePage/></RotaProtegida>} />
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>,
-)
+createRoot(document.getElementById("root")!).render(
+    <StrictMode>
+        <BrowserRouter>
+            <Routes>
+                {/* Rotas públicas */}
+                <Route path="/" element={<LoginPage />} />
+                <Route
+                    path="/cadastro"
+                    element={<CadastroPage />}
+                />
+
+                {/* Rotas autenticadas com o layout profissional */}
+                <Route
+                    element={
+                        <RotaProtegida>
+                            <AppLayout />
+                        </RotaProtegida>
+                    }
+                >
+                    <Route
+                        path="/propriedades"
+                        element={<PropriedadesPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/nova"
+                        element={<CadastroPropriedadePage />}
+                    />
+                </Route>
+
+                {/* Rota desconhecida */}
+                <Route
+                    path="*"
+                    element={<Navigate to="/" replace />}
+                />
+            </Routes>
+        </BrowserRouter>
+    </StrictMode>,
+);
