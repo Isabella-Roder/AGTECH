@@ -112,6 +112,10 @@ public class Usuario {
         this.senhaHash = senhaHash;
     }
 
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
     public void setAtualizadoEm(LocalDateTime atualizadoEm) {
         this.atualizadoEm = atualizadoEm;
     }
