@@ -22,15 +22,18 @@ public class PropriedadeRuralService {
     private final PropriedadeRuralRepository propriedadeRuralRepository;
     private final UsuarioPropriedadeAcessoRepository acessoRepository;
     private final UsuarioRepository usuarioRepository;
+    private final UsuarioPropriedadeAcessoService acessoService;
 
     public PropriedadeRuralService(
         PropriedadeRuralRepository propriedadeRuralRepository,
         UsuarioPropriedadeAcessoRepository acessoRepository,
-        UsuarioRepository usuarioRepository
+        UsuarioRepository usuarioRepository,
+        UsuarioPropriedadeAcessoService acessoService
     ) {
         this.propriedadeRuralRepository = propriedadeRuralRepository;
         this.acessoRepository = acessoRepository;
         this.usuarioRepository = usuarioRepository;
+        this.acessoService = acessoService;
     }
 
     private PropriedadeRural buscarEntidade(Long id) {
@@ -58,7 +61,9 @@ public class PropriedadeRuralService {
     }
 
     @Transactional
-    public PropriedadeResponse atualizar(Long id, CadastroPropriedadeRequest request) {
+    public PropriedadeResponse atualizar(Long id, CadastroPropriedadeRequest request, Long usuarioId) {
+        acessoService.verificarAcesso(usuarioId, id);
+
         PropriedadeRural propriedade = buscarEntidade(id);
 
         propriedade.setNome(request.nome());
@@ -70,21 +75,24 @@ public class PropriedadeRuralService {
     }
 
     @Transactional
-    public PropriedadeResponse desativar(Long id) {
+    public PropriedadeResponse desativar(Long id, Long usuarioId) {
+        acessoService.verificarAcesso(usuarioId, id);
         PropriedadeRural propriedade = buscarEntidade(id);
         propriedade.desativar();
         return PropriedadeResponse.from(propriedadeRuralRepository.save(propriedade));
     }
 
     @Transactional
-    public PropriedadeResponse ativar(Long id) {
+    public PropriedadeResponse ativar(Long id, Long usuarioId) {
+        acessoService.verificarAcesso(usuarioId, id);
         PropriedadeRural propriedade = buscarEntidade(id);
         propriedade.ativar();
         return PropriedadeResponse.from(propriedadeRuralRepository.save(propriedade));
     }
 
     @Transactional(readOnly = true)
-    public PropriedadeResponse buscarPorId(Long id) {
+    public PropriedadeResponse buscarPorId(Long id, Long usuarioId) {
+        acessoService.verificarAcesso(usuarioId, id);
         return PropriedadeResponse.from(buscarEntidade(id));
     }
 

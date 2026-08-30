@@ -48,30 +48,34 @@ public class PropriedadeRuralController {
     @PutMapping("/{id}")
     public ResponseEntity<PropriedadeResponse> atualizar(
         @PathVariable Long id,
-        @Valid @RequestBody CadastroPropriedadeRequest request
+        @Valid @RequestBody CadastroPropriedadeRequest request,
+        @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
-        return ResponseEntity.ok(propriedadeRuralService.atualizar(id, request));
+        return ResponseEntity.ok(propriedadeRuralService.atualizar(id, request, usuarioDetails.getId()));
     }
 
     @PatchMapping("/{id}/desativar")
     public ResponseEntity<PropriedadeResponse> desativar(
-        @PathVariable Long id
+        @PathVariable Long id,
+        @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
-        return ResponseEntity.ok(propriedadeRuralService.desativar(id));
+        return ResponseEntity.ok(propriedadeRuralService.desativar(id, usuarioDetails.getId()));
     }
 
     @PatchMapping("/{id}/ativar")
     public ResponseEntity<PropriedadeResponse> ativar(
-        @PathVariable Long id
+        @PathVariable Long id,
+        @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
-        return ResponseEntity.ok(propriedadeRuralService.ativar(id));
+        return ResponseEntity.ok(propriedadeRuralService.ativar(id, usuarioDetails.getId()));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PropriedadeResponse> buscarPorId(
-        @PathVariable Long id
+        @PathVariable Long id,
+        @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
-        return ResponseEntity.ok(propriedadeRuralService.buscarPorId(id));
+        return ResponseEntity.ok(propriedadeRuralService.buscarPorId(id, usuarioDetails.getId()));
     }
 
     @GetMapping("/minhas")

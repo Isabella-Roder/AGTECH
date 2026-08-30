@@ -79,4 +79,12 @@ public class TratadorGlobalDeErros {
 
         return ResponseEntity.status(status).body(erro);
     }
+
+    @ExceptionHandler(AcessoNegadoException.class) 
+    public ResponseEntity<ErroApi> tratarAcessoNegado(
+        AcessoNegadoException exception,
+        HttpServletRequest request
+    ) {
+        return criarResposta(HttpStatus.FORBIDDEN, exception.getMessage(), request.getRequestURI());
+    }
 }

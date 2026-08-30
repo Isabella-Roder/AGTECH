@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.AGTECH.backend.dtos.AcessoResponse;
 import com.AGTECH.backend.dtos.ConcederAcessoRequest;
+import com.AGTECH.backend.exception.AcessoNegadoException;
 import com.AGTECH.backend.exception.RegraDeNegocioException;
 import com.AGTECH.backend.models.PropriedadeRural;
 import com.AGTECH.backend.models.Usuario;
@@ -66,5 +67,12 @@ public class UsuarioPropriedadeAcessoService {
         return acessoRepository.findByPropriedadeId(propriedadeId).stream()
             .map(AcessoResponse::from)
             .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public void verificarAcesso(Long usuarioId, Long propriedadeId) {
+        if (!acessoRepository.existsByUsuarioIdAndPropriedadeId(usuarioId, propriedadeId)) {
+            throw new AcessoNegadoException("Você não tem acesso a essa propriedade.");
+        }
     }
 }
