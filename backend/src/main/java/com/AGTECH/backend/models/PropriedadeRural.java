@@ -122,4 +122,8 @@ public class PropriedadeRural {
     public void setAreaTotalHectares(Double areaTotalHectares) {
         this.areaTotalHectares = areaTotalHectares;
     }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 }
