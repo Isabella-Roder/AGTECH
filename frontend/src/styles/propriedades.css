@@ -216,6 +216,12 @@
 }
 
 .property-card {
+    height: 100%;
+    display: block;
+    box-sizing: border-box;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
     padding: 20px;
     border: 1px solid #dde6dd;
     border-radius: 15px;
@@ -224,6 +230,33 @@
         transform 180ms ease,
         border-color 180ms ease,
         box-shadow 180ms ease;
+}
+
+.property-card:focus-visible {
+    outline: 3px solid rgb(47 107 59 / 25%);
+    outline-offset: 3px;
+}
+
+.property-card-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #edf1ed;
+    color: #397548;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.property-card-action span {
+    font-size: 1rem;
+    transition: transform 160ms ease;
+}
+
+.property-card:hover .property-card-action span {
+    transform: translateX(4px);
 }
 
 .property-card:hover {

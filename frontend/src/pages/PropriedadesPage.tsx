@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { listarMinhasPropriedades, type Propriedade } from "../api/propriedades";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import "../styles/propriedades.css"
 
 export function PropriedadesPage() {
@@ -185,57 +185,67 @@ export function PropriedadesPage() {
                 {!carregando && !erro && propriedades.length > 0 && (
                     <ul className="property-grid">
                         {propriedades.map((propriedade) => (
-                            <li
-                                className="property-card"
-                                key={propriedade.id}
-                            >
-                                <header className="property-card-header">
-                                    <div className="property-card-icon">
-                                        {propriedade.nome
-                                            .charAt(0)
-                                            .toUpperCase()}
-                                    </div>
+            <li key={propriedade.id}>
+                <Link
+                    className="property-card"
+                    to={`/propriedades/${propriedade.id}`}
+                    aria-label={`Ver detalhes da propriedade ${propriedade.nome}`}
+                >
+                    <header className="property-card-header">
+                        <div
+                            className="property-card-icon"
+                            aria-hidden="true"
+                        >
+                            {propriedade.nome
+                                .charAt(0)
+                                .toUpperCase()}
+                        </div>
 
-                                    <span
-                                        className={
-                                            propriedade.ativo
-                                                ? "property-status property-status--active"
-                                                : "property-status property-status--inactive"
-                                        }
-                                    >
-                                        {propriedade.ativo
-                                            ? "Ativa"
-                                            : "Inativa"}
-                                    </span>
-                                </header>
+                        <span
+                            className={
+                                propriedade.ativo
+                                    ? "property-status property-status--active"
+                                    : "property-status property-status--inactive"
+                            }
+                        >
+                            {propriedade.ativo
+                                ? "Ativa"
+                                : "Inativa"}
+                        </span>
+                    </header>
 
-                                <h3>{propriedade.nome}</h3>
+                    <h3>{propriedade.nome}</h3>
 
-                                <div className="property-card-information">
-                                    <p>
-                                        <span>Localização</span>
-                                        <strong>
-                                            {propriedade.municipio}/
-                                            {propriedade.estado}
-                                        </strong>
-                                    </p>
+                    <div className="property-card-information">
+                        <p>
+                            <span>Localização</span>
 
-                                    <p>
-                                        <span>Área total</span>
-                                        <strong>
-                                            {new Intl.NumberFormat(
-                                                "pt-BR",
-                                                {
-                                                    maximumFractionDigits: 2,
-                                                },
-                                            ).format(
-                                                propriedade.areaTotalHectares,
-                                            )}{" "}
-                                            ha
-                                        </strong>
-                                    </p>
-                                </div>
-                            </li>
+                            <strong>
+                                {propriedade.municipio}/
+                                {propriedade.estado}
+                            </strong>
+                        </p>
+
+                        <p>
+                            <span>Área total</span>
+
+                            <strong>
+                                {new Intl.NumberFormat("pt-BR", {
+                                    maximumFractionDigits: 2,
+                                }).format(
+                                    propriedade.areaTotalHectares,
+                                )}{" "}
+                                ha
+                            </strong>
+                        </p>
+                    </div>
+
+                    <footer className="property-card-action">
+                        Ver detalhes
+                        <span aria-hidden="true">→</span>
+                    </footer>
+                </Link>
+            </li>
                         ))}
                     </ul>
                 )}

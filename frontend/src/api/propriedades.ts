@@ -26,3 +26,7 @@ export function cadastrarPropriedade(dados: CadastroPropriedade,): Promise<Propr
         body: JSON.stringify(dados),
     });
 }
+
+export function buscarPropriedadePorId(id: number): Promise<Propriedade> {
+    return apiFetch<Propriedade>(`/api/propriedades/${id}`);
+}

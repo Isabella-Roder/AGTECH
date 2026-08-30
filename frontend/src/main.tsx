@@ -14,7 +14,9 @@ import { CadastroPropriedadePage } from "./pages/CadastroPropriedadePage";
 import { LoginPage } from "./pages/LoginPage";
 import { PropriedadesPage } from "./pages/PropriedadesPage";
 
+
 import "./index.css";
+import { DetalhesPropriedadePage } from "./pages/DetalhesPropriedadePage";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -44,6 +46,12 @@ createRoot(document.getElementById("root")!).render(
                         path="/propriedades/nova"
                         element={<CadastroPropriedadePage />}
                     />
+
+                    <Route
+                        path="/propriedades/:id"
+                        element={<DetalhesPropriedadePage />}
+                    />
+                    
                 </Route>
 
                 {/* Rota desconhecida */}
