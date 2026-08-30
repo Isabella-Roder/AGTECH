@@ -94,7 +94,7 @@ public class Talhao {
     public PropriedadeRural getPropriedade() {
         return propriedade;
     }
-
+    
     public String getNome() {
         return nome;
     }
