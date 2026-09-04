@@ -82,6 +82,7 @@ public class TalhaoService {
         return TalhaoResponse.from(talhaoRepository.save(talhao));
     }
 
+
     @Transactional(readOnly = true)
     public List<TalhaoResponse> listarPorPropriedade(Long propriedadeId, Long usuarioId) {
         acessoService.verificarAcesso(usuarioId, propriedadeId);

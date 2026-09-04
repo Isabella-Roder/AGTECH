@@ -78,6 +78,108 @@
 .property-details-feedback > button { min-height: 42px; padding: 9px 15px; border: 1px solid var(--line); border-radius: 11px; color: var(--ink-700); background: white; font-weight: 750; cursor: pointer; }
 .property-details-feedback-actions button:last-child { border-color: var(--forest-600); color: white; background: var(--forest-600); }
 
+.talhoes-section-header {
+    align-items: flex-start;
+}
+
+.talhoes-summary {
+    display: flex;
+    gap: 8px;
+}
+
+.talhoes-summary span {
+    min-width: 78px;
+    display: flex;
+    flex-direction: column;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    color: var(--ink-500);
+    background: var(--sage-50);
+    font-size: 0.66rem;
+}
+
+.talhoes-summary strong {
+    color: var(--forest-800);
+    font-size: 0.82rem;
+}
+
+.talhoes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.talhao-card {
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: linear-gradient(145deg, #ffffff, #fafbf7);
+    transition: var(--transition);
+}
+
+.talhao-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--sage-300);
+    box-shadow: var(--shadow-sm);
+}
+
+.talhao-card > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.talhao-card-mark {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    color: var(--forest-950);
+    background: var(--sage-100);
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+.talhao-card h3 {
+    margin: 0 0 17px;
+    color: var(--forest-950);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+}
+
+.talhao-card-area {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 13px;
+    border-top: 1px solid var(--line);
+}
+
+.talhao-card-area span {
+    color: var(--ink-500);
+    font-size: 0.72rem;
+}
+
+.talhao-card-area strong {
+    color: var(--ink-500);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+}
+
+.talhao-card-area small {
+    color: var(--ink-500);
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+}
+
 @media (max-width: 820px) { .property-details-grid { grid-template-columns: 1fr; } }
 @media (max-width: 620px) {
     .property-details-hero,
@@ -86,4 +188,13 @@
     .property-details-actions,
     .property-details-edit { width: 100%; }
     .property-details-feedback-actions { width: 100%; flex-direction: column; }
+    .talhoes-section-header,
+    .talhoes-summary {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .talhoes-summary span {
+        width: 100%;
+    }
 }
