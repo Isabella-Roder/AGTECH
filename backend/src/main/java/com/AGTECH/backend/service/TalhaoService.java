@@ -90,4 +90,9 @@ public class TalhaoService {
         return talhaoRepository.findByPropriedadeId(propriedadeId).stream()
             .map(TalhaoResponse::from).toList();
     }
+
+    @Transactional(readOnly = true)
+    public TalhaoResponse buscarPorId(Long id) {
+        return  TalhaoResponse.from(buscarEntidade(id));
+    }
 }
