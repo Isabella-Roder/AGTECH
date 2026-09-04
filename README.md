@@ -1,40 +1,54 @@
 # AGTECH — Plataforma de Gestão Rural
 
-Plataforma web para centralizar a gestão operacional e administrativa de
-propriedades rurais. O projeto está sendo desenvolvido de forma incremental,
-com um backend Java responsável pelas regras de negócio e um frontend React
-responsável pela experiência do usuário.
+Plataforma web para centralizar a gestão de propriedades rurais. O projeto é
+construído de forma incremental, começando pela fundação de usuários,
+autenticação, propriedades, talhões e culturas.
 
 > Gigantesco no destino, pequeno em cada entrega.
 
-## Estado atual
+## Sobre o projeto
 
-O projeto está na fase de fundação da V0.1. Já estão implementados:
+O AGTECH pretende evoluir para uma plataforma capaz de reunir informações
+operacionais, administrativas, financeiras e analíticas do meio rural. O
+backend Java é a fonte de verdade das regras de negócio; o frontend React é
+responsável pela experiência do usuário.
 
-- cadastro, consulta, atualização, ativação e desativação de usuários;
+O projeto começa como um monólito modular. Novos serviços, integrações e
+machine learning serão adicionados somente quando houver requisitos concretos.
+
+## Estado atual — V0.1
+
+### Backend
+
+- usuários: cadastro, consulta, atualização e controle de status;
 - autenticação stateless com JWT;
-- cadastro, consulta, atualização, ativação e desativação de propriedades;
-- vínculo entre usuários e propriedades com papéis de acesso;
-- listagem das propriedades vinculadas ao usuário autenticado;
-- concessão, consulta e remoção de acessos a propriedades;
-- migrations do banco com Flyway;
-- validação de entrada e respostas de erro padronizadas;
-- frontend com cadastro de conta, login e logout;
-- tratamento de sessão expirada no frontend;
+- propriedades: cadastro, consulta, atualização e controle de status;
+- vínculo entre usuários e propriedades com os papéis `PROPRIETARIO`,
+  `GESTOR` e `OPERADOR`;
+- concessão, listagem e remoção de acessos;
+- talhões: cadastro, consulta, atualização e controle de status;
+- validação de acesso e pertencimento dos talhões à propriedade;
+- cadastro e listagem de culturas;
+- Bean Validation, tratamento global de erros e migrations Flyway.
+
+### Frontend
+
+- cadastro de conta, login e logout;
+- proteção de rotas e tratamento de sessão expirada;
 - dashboard responsivo de propriedades;
-- cadastro de propriedade pelo frontend.
+- cadastro, detalhes e edição de propriedades;
+- cadastro, listagem e edição de talhões;
+- ativação e desativação de talhões com confirmação;
+- estados de carregamento, erro, sucesso e conteúdo vazio.
 
-Ainda não fazem parte da implementação atual:
+### Próximas entregas
 
-- talhões;
-- culturas;
-- safras;
-- plantios;
-- serviço de analytics em Python;
-- modelos de machine learning.
+- interface de culturas;
+- safras e plantios;
+- ampliação dos testes de API, autorização e interface.
 
-Esses módulos serão adicionados apenas quando entrarem formalmente no escopo
-de uma entrega.
+Estoque, operações agrícolas, máquinas, pecuária, financeiro, analytics e
+machine learning pertencem a versões futuras.
 
 ## Arquitetura
 
@@ -49,115 +63,89 @@ Frontend React
    v
 Backend Spring Boot
    |
-   +---- JPA / Hibernate ----> Banco de dados
-   |
-   +---- Flyway ------------> Versionamento do schema
+   +---- JPA / Hibernate ----> H2
+   +---- Flyway ------------> migrations
 ```
 
-O backend é a fonte de verdade para dados operacionais, autenticação,
-autorização e regras de negócio. O frontend não substitui verificações de
-segurança do servidor.
-
-O projeto começa como um monólito modular. Microserviços, mensageria, cache e
-outros componentes de infraestrutura só serão considerados diante de uma
-necessidade concreta e mensurável.
+O backend controla autenticação, autorização, persistência e regras de
+negócio. A proteção de rotas do frontend não substitui as verificações de
+segurança do servidor. PostgreSQL é o banco planejado para a evolução do
+projeto; a configuração atual utiliza H2 embarcado.
 
 ## Tecnologias
 
 ### Backend
 
-- Java 26;
-- Spring Boot 4;
-- Spring Web MVC;
-- Spring Data JPA;
-- Spring Security;
+- Java 26 e Spring Boot 4.1;
+- Spring Web MVC, Data JPA e Security;
 - Bean Validation;
 - JWT com JJWT;
-- Flyway;
-- H2 no ambiente atual;
-- Maven Wrapper;
-- JUnit e Spring Test.
-
-PostgreSQL é o banco definido para a evolução do projeto, mas a configuração
-atual ainda utiliza o H2 fornecido pelo Spring Boot. A migração para
-PostgreSQL deve preservar as migrations e ser feita em uma entrega própria.
+- Flyway e H2;
+- Maven Wrapper, JUnit e Spring Test.
 
 ### Frontend
 
-- React 19;
-- TypeScript;
-- React Router;
-- Vite;
+- React 19 e TypeScript 6;
+- React Router 7;
+- Vite 8;
 - CSS responsivo;
 - Oxlint.
 
-### Dados e analytics planejados
+### Dados — planejado
 
-- Python;
-- FastAPI;
-- Pandas ou Polars;
-- NumPy;
-- scikit-learn.
+Python, FastAPI, Pandas ou Polars, NumPy e scikit-learn. O serviço Python
+ainda não existe e será reservado para análises e modelos com objetivos e
+métricas definidos.
 
-O serviço Python ainda não foi criado. Ele será usado somente para análises,
-processamento de dados e modelos que possuam objetivo e métricas definidos.
-
-## Estrutura do repositório
+## Estrutura
 
 ```text
 AGTECH/
-├── backend/             # API Spring Boot e regras de negócio
-├── frontend/            # aplicação React
-├── docs/
-│   └── architecture/    # decisões e documentação arquitetural
-├── AGENTS.md            # contexto e regras permanentes do projeto
+├── backend/                 # API, domínio e regras de negócio
+│   └── src/
+│       ├── main/java/       # controllers, services, models e segurança
+│       ├── main/resources/  # configuração e migrations
+│       └── test/            # testes automatizados
+├── frontend/                # aplicação React e TypeScript
+│   └── src/
+│       ├── api/             # cliente HTTP e contratos
+│       ├── components/      # componentes e layout
+│       ├── pages/           # páginas da aplicação
+│       └── styles/          # estilos globais e por fluxo
+├── docs/architecture/       # decisões arquiteturais
+├── scripts/                 # utilitários de desenvolvimento
+├── AGENTS.md                # regras permanentes do projeto
 └── README.md
 ```
 
-No futuro, o serviço de dados poderá ser criado em `analytics-python/` quando
-houver um requisito analítico concreto.
+## Domínio atual
 
-## Domínio implementado
+- **Usuário:** pessoa que acessa a plataforma. O e-mail é único e a senha é
+  armazenada como hash BCrypt.
+- **Propriedade rural:** fazenda ou unidade produtiva com localização, área
+  total em hectares e status.
+- **Acesso à propriedade:** vínculo entre usuário e propriedade. Ao criar uma
+  propriedade, o usuário recebe o papel `PROPRIETARIO`.
+- **Talhão:** divisão produtiva pertencente a uma propriedade, com nome, área
+  em hectares e status.
+- **Cultura:** cultura agrícola identificada por nome único. A API já existe;
+  sua interface ainda será criada.
 
-### Usuário
-
-Representa uma pessoa que acessa a plataforma. O e-mail é único e utilizado
-na autenticação. Senhas são armazenadas pelo backend como hash BCrypt.
-
-### Propriedade rural
-
-Representa uma fazenda ou unidade produtiva. Nesta fase possui nome,
-município, estado, área total em hectares e situação ativa/inativa.
-
-### Acesso à propriedade
-
-`UsuarioPropriedadeAcesso` representa o vínculo entre usuário e propriedade.
-Os papéis atuais são:
-
-- `PROPRIETARIO`;
-- `GESTOR`;
-- `OPERADOR`.
-
-Ao cadastrar uma propriedade, o usuário autenticado recebe o papel de
-`PROPRIETARIO`. A autorização deve sempre considerar o acesso ao recurso, e
-não somente a autenticação ou um papel global.
-
-Mais detalhes estão no
-[ADR de modelagem da V0.1](docs/architecture/0001-modelagem-v0.1-fundacao.md).
+Consulte o [ADR de modelagem da V0.1](docs/architecture/0001-modelagem-v0.1-fundacao.md)
+para conhecer as decisões de domínio e autorização.
 
 ## Pré-requisitos
 
 - Java 26;
-- Node.js compatível com a versão do Vite do projeto;
+- Node.js compatível com Vite 8;
 - npm.
 
-Não é necessário instalar o Maven globalmente, pois o projeto inclui Maven
-Wrapper.
+Não é necessário instalar Maven globalmente: o projeto inclui o wrapper.
 
-## Configuração do backend
+## Configuração
 
-O backend exige a variável de ambiente `JWT_SECRET`. Utilize um segredo longo
-e aleatório e nunca o versione no repositório.
+O backend exige `JWT_SECRET`. Use um segredo longo e aleatório e nunca o
+adicione ao repositório.
 
 Linux/macOS:
 
@@ -171,39 +159,26 @@ PowerShell:
 $env:JWT_SECRET="substitua-por-um-segredo-longo-e-aleatorio"
 ```
 
-A validade do token é de uma hora por padrão. Ela pode ser alterada em
-milissegundos com:
+O token expira em uma hora por padrão. Para alterar o período em
+milissegundos:
 
 ```bash
 export JWT_EXPIRATION_MS=3600000
 ```
 
-## Executando o backend
+## Como executar
 
-Linux/macOS:
+### Backend
 
 ```bash
 cd backend
 ./mvnw spring-boot:run
 ```
 
-Windows:
+No Windows, use `./mvnw.cmd spring-boot:run`. A API ficará disponível em
+`http://localhost:8080`. O Flyway aplicará as migrations automaticamente.
 
-```powershell
-cd backend
-.\mvnw.cmd spring-boot:run
-```
-
-A API será disponibilizada, por padrão, em:
-
-```text
-http://localhost:8080
-```
-
-Ao iniciar a aplicação, o Flyway aplica as migrations existentes em
-`backend/src/main/resources/db/migration`.
-
-## Executando o frontend
+### Frontend
 
 Em outro terminal:
 
@@ -213,14 +188,8 @@ npm install
 npm run dev
 ```
 
-O frontend será disponibilizado, por padrão, em:
-
-```text
-http://localhost:5173
-```
-
-Atualmente, a URL da API está configurada no cliente HTTP do frontend como
-`http://localhost:8080`.
+A interface ficará disponível em `http://localhost:5173`. O cliente HTTP
+aponta atualmente para `http://localhost:8080`.
 
 ## Rotas do frontend
 
@@ -228,59 +197,74 @@ Atualmente, a URL da API está configurada no cliente HTTP do frontend como
 | --- | --- | --- |
 | `/` | Público | Login |
 | `/cadastro` | Público | Cadastro de conta |
-| `/propriedades` | Autenticado | Dashboard e listagem de propriedades |
+| `/propriedades` | Autenticado | Dashboard de propriedades |
 | `/propriedades/nova` | Autenticado | Cadastro de propriedade |
+| `/propriedades/:id` | Autenticado | Detalhes e talhões |
+| `/propriedades/:id/editar` | Autenticado | Edição da propriedade |
+| `/propriedades/:propriedadeId/talhoes/novo` | Autenticado | Cadastro de talhão |
+| `/propriedades/:propriedadeId/talhoes/:talhaoId/editar` | Autenticado | Edição de talhão |
 
-## API disponível
+Rotas desconhecidas são redirecionadas para o login.
 
-### Autenticação
+## Endpoints da API
+
+### Autenticação e usuários
 
 | Método | Endpoint | Descrição |
 | --- | --- | --- |
-| `POST` | `/auth/login` | Autentica um usuário e retorna um JWT |
-
-### Usuários
-
-| Método | Endpoint | Descrição |
-| --- | --- | --- |
+| `POST` | `/auth/login` | Autentica e retorna um JWT |
 | `POST` | `/api/usuarios` | Cadastra uma conta |
 | `GET` | `/api/usuarios/{id}` | Consulta um usuário |
 | `PUT` | `/api/usuarios/{id}` | Atualiza um usuário |
 | `PATCH` | `/api/usuarios/{id}/ativar` | Ativa um usuário |
 | `PATCH` | `/api/usuarios/{id}/desativar` | Desativa um usuário |
 
-### Propriedades
+### Propriedades e acessos
 
 | Método | Endpoint | Descrição |
 | --- | --- | --- |
 | `POST` | `/api/propriedades` | Cadastra uma propriedade |
-| `GET` | `/api/propriedades/minhas` | Lista propriedades acessíveis ao usuário |
+| `GET` | `/api/propriedades/minhas` | Lista propriedades acessíveis |
 | `GET` | `/api/propriedades/{id}` | Consulta uma propriedade |
 | `PUT` | `/api/propriedades/{id}` | Atualiza uma propriedade |
 | `PATCH` | `/api/propriedades/{id}/ativar` | Ativa uma propriedade |
 | `PATCH` | `/api/propriedades/{id}/desativar` | Desativa uma propriedade |
+| `POST` | `/api/propriedades/{id}/acessos` | Concede acesso |
+| `GET` | `/api/propriedades/{id}/acessos` | Lista acessos |
+| `DELETE` | `/api/propriedades/{id}/acessos/{acessoId}` | Remove um acesso |
 
-### Acessos a propriedades
+### Talhões
 
 | Método | Endpoint | Descrição |
 | --- | --- | --- |
-| `POST` | `/api/propriedades/{id}/acessos` | Concede acesso a um usuário |
-| `GET` | `/api/propriedades/{id}/acessos` | Lista os acessos da propriedade |
-| `DELETE` | `/api/propriedades/{id}/acessos/{acessoId}` | Remove um acesso |
+| `POST` | `/api/propriedades/{propriedadeId}/talhoes` | Cadastra |
+| `GET` | `/api/propriedades/{propriedadeId}/talhoes` | Lista |
+| `GET` | `/api/propriedades/{propriedadeId}/talhoes/{talhaoId}` | Consulta |
+| `PUT` | `/api/propriedades/{propriedadeId}/talhoes/{talhaoId}` | Atualiza |
+| `PATCH` | `/api/propriedades/{propriedadeId}/talhoes/{talhaoId}/ativar` | Ativa |
+| `PATCH` | `/api/propriedades/{propriedadeId}/talhoes/{talhaoId}/desativar` | Desativa |
 
-Com exceção do login e do cadastro de conta, as rotas da API exigem o token:
+### Culturas
+
+| Método | Endpoint | Descrição |
+| --- | --- | --- |
+| `POST` | `/api/culturas` | Cadastra uma cultura |
+| `GET` | `/api/culturas` | Lista culturas |
+
+Somente o login e o cadastro de conta são públicos. As outras chamadas devem
+enviar:
 
 ```http
 Authorization: Bearer <token>
 ```
 
-## Respostas de erro
+## Tratamento de erros
 
-O backend utiliza um formato padronizado:
+O backend retorna erros em um formato padronizado:
 
 ```json
 {
-  "timestamp": "2026-08-29T12:00:00Z",
+  "timestamp": "2026-09-04T12:00:00Z",
   "status": 422,
   "erro": "Unprocessable Content",
   "mensagem": "Descrição segura do erro.",
@@ -288,78 +272,58 @@ O backend utiliza um formato padronizado:
 }
 ```
 
-Erros inesperados são registrados no servidor, mas detalhes internos não são
-expostos ao cliente.
+O frontend apresenta `mensagem` ao usuário. Ao receber `401`, remove o token
+local e redireciona para o login.
+
+## Migrations
+
+| Versão | Descrição |
+| --- | --- |
+| `V1` | Usuários |
+| `V2` | Propriedades rurais |
+| `V3` | Vínculo entre usuários e propriedades |
+| `V4` | Talhões |
+| `V5` | Culturas |
+
+Toda mudança de schema deve usar uma nova migration. Não altere migrations já
+aplicadas.
 
 ## Testes e verificações
 
-Backend:
-
 ```bash
+# backend
 cd backend
 ./mvnw test
-```
 
-Frontend:
-
-```bash
+# frontend
 cd frontend
 npm run lint
 npm run build
 ```
 
-O frontend ainda não possui suíte automatizada de testes. Ela deverá ser
-adicionada conforme os fluxos crescerem.
-
-## Migrations
-
-As migrations existentes são:
-
-| Versão | Descrição |
-| --- | --- |
-| `V1` | Criação da tabela de usuários |
-| `V2` | Criação da tabela de propriedades rurais |
-| `V3` | Criação do vínculo entre usuários e propriedades |
-
-Mudanças persistentes no schema devem sempre ser feitas por uma nova
-migration. Migrations já aplicadas não devem ser alteradas retroativamente.
+O frontend ainda não possui uma suíte automatizada de testes.
 
 ## Segurança
 
-- senhas são processadas com BCrypt no backend;
-- a API utiliza autenticação stateless com JWT;
-- CORS permite o frontend local em `http://localhost:5173`;
-- segredos devem permanecer em variáveis de ambiente;
-- o frontend remove a sessão local quando recebe `401`;
-- o token está atualmente armazenado no `localStorage`;
-- autorização de negócio deve ser validada pelo backend para cada recurso.
+- senhas são processadas com BCrypt;
+- a API usa sessão stateless e JWT;
+- o CORS permite `http://localhost:5173`;
+- o frontend remove a sessão ao receber `401`;
+- o token é armazenado atualmente no `localStorage`;
+- segredos e credenciais não devem ser versionados;
+- toda autorização de negócio deve ser validada pelo backend.
 
 ## Roadmap resumido
 
-Próximas etapas planejadas da V0.1:
+1. criar a interface de culturas;
+2. implementar safras;
+3. implementar plantios;
+4. ampliar testes de integração e segurança;
+5. avançar para módulos futuros apenas conforme requisitos concretos.
 
-1. concluir e reforçar a autorização por propriedade;
-2. implementar talhões;
-3. implementar culturas;
-4. implementar safras;
-5. implementar plantios;
-6. ampliar testes de API e segurança.
+## Contribuição
 
-Módulos de estoque, operações agrícolas, máquinas, pecuária, financeiro,
-analytics e machine learning pertencem a versões futuras e não devem ser
-implementados antecipadamente.
-
-## Diretrizes de contribuição
-
-Antes de propor ou alterar código, leia o [AGENTS.md](AGENTS.md). As regras
-centrais são:
-
-- fazer mudanças pequenas, coesas e testáveis;
-- evitar arquitetura especulativa;
-- manter controllers finos e regras no domínio/serviços;
-- validar entradas e tratar erros;
-- preservar os contratos entre frontend e backend;
-- não incluir credenciais ou segredos;
-- criar migrations para alterações no banco;
-- executar os testes e verificações relevantes;
-- não fazer `git push` sem solicitação explícita.
+Leia o [AGENTS.md](AGENTS.md) antes de alterar o projeto. Faça mudanças
+pequenas e testáveis, mantenha as responsabilidades separadas, preserve os
+contratos entre frontend e backend, use migrations para o banco, não versione
+segredos e execute as verificações relevantes antes de concluir.
