@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
-import { cadastrarTalhao } from "../api/Talhoes";
+import { cadastrarTalhao } from "../api/talhoes";
 import "../styles/propriedade-form.css"
 
 export function CadastroTalhaoPage() {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { buscarPropriedadePorId, type Propriedade } from "../api/propriedades"
 import { useNavigate, useParams } from "react-router-dom";
-import { listarTalhoes, type Talhao } from "../api/Talhoes";
+import { listarTalhoes, type Talhao } from "../api/talhoes";
 import "../styles/detalhes-propriedade.css";
 
 export function DetalhesPropriedadePage() {

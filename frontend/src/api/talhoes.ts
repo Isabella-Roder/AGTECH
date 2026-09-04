@@ -39,7 +39,7 @@ export function atualizarTalhao(propriedadeId: number, talhaoId: number, dados: 
 
 export function ativarTalhao(propriedadeId: number, talhaoId: number): Promise<Talhao> {
     return apiFetch<Talhao> (
-        `/api/propriedades/${propriedadeId}/talhoes/${talhaoId}`, {
+        `/api/propriedades/${propriedadeId}/talhoes/${talhaoId}/ativar`, {
             method: "PATCH"
         }
     );
@@ -47,8 +47,14 @@ export function ativarTalhao(propriedadeId: number, talhaoId: number): Promise<T
 
 export function desativarTalhao(propriedadeId: number, talhaoId: number): Promise<Talhao> {
     return apiFetch<Talhao> (
-        `/api/propriedades/${propriedadeId}/talhoes/${talhaoId}`, {
+        `/api/propriedades/${propriedadeId}/talhoes/${talhaoId}/desativar`, {
             method: "PATCH"
         }
     )
+}
+
+export function buscarTalhaoPorId(propriedadeId: number, talhaoId: number): Promise<Talhao> {
+    return apiFetch<Talhao> (
+        `/api/propriedades/${propriedadeId}/talhoes/${talhaoId}`
+    );
 }
