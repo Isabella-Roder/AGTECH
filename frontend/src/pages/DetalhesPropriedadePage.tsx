@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { buscarPropriedadePorId, type Propriedade } from "../api/propriedades"
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { listarTalhoes, type Talhao } from "../api/talhoes";
 import "../styles/detalhes-propriedade.css";
 
@@ -14,8 +14,12 @@ export function DetalhesPropriedadePage() {
     
     const { id } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
     const propriedadeId = Number(id);
     const idValido = Number.isInteger(propriedadeId) && propriedadeId > 0;
+    const mensagem = (
+        location.state as { mensagem?: string } | null
+    )?.mensagem;
 
     useEffect(() => {
         let componenteAtivo = true;
@@ -134,6 +138,12 @@ export function DetalhesPropriedadePage() {
                 <span aria-hidden="true">←</span>
                 Voltar para propriedades
             </button>
+
+            {mensagem && (
+                <p className="property-details-message" role="status">
+                    {mensagem}
+                </p>
+            )}
 
             <header className="property-details-hero">
                 <div className="property-details-identity">
@@ -287,18 +297,23 @@ export function DetalhesPropriedadePage() {
                                         <small> ha</small>
                                     </strong>
                                 </div>
+
+                                <button
+                                    className="talhao-card-edit"
+                                    type="button"
+                                    onClick={() =>
+                                        navigate(
+                                            `/propriedades/${propriedade.id}/talhoes/${talhao.id}/editar`,
+                                        )
+                                    }
+                                >
+                                    Editar talhão
+                                    <span aria-hidden="true">→</span>
+                                </button>
                             </li>
                         ))}
                     </ul>
                 )}
-
-                <div className="property-details-empty">
-                    <div aria-hidden="true">🌱</div>
-
-                    <h3>Fundação da propriedade concluída</h3>
-
-                    <p>Talhões, safras, e atividades agrícolas serão adicionados conforma a evolução da V0.1.</p>
-                </div>
             </section>
         </main>
     );

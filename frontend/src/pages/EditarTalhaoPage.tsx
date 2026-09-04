@@ -197,5 +197,5 @@ export function EditarTalhao() {
                 </form>
             </section>
         </main>
-    )
+    );
 }
