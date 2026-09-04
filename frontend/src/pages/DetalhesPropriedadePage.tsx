@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react"
 import { buscarPropriedadePorId, type Propriedade } from "../api/propriedades"
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { listarTalhoes, type Talhao } from "../api/talhoes";
+import {
+    ativarTalhao,
+    desativarTalhao,
+    listarTalhoes,
+    type Talhao,
+} from "../api/talhoes";
 import "../styles/detalhes-propriedade.css";
 
 export function DetalhesPropriedadePage() {
@@ -11,6 +16,9 @@ export function DetalhesPropriedadePage() {
     const [tentativa, setTentativa] = useState(0);
 
     const [talhoes, setTalhoes] = useState<Talhao[]>([]);
+    const [talhaoEmAlteracao, setTalhaoEmAlteracao] = useState<number | null>(null);
+    const [mensagemStatus, setMensagemStatus] = useState<string | null>(null);
+    const [erroStatus, setErroStatus] = useState<string | null>(null);
     
     const { id } = useParams();
     const navigate = useNavigate();
@@ -63,6 +71,44 @@ export function DetalhesPropriedadePage() {
         setCarregando(true);
         setErro(null);
         setTentativa((valor) => valor + 1);
+    }
+
+    async function alterarStatusTalhao(talhao: Talhao) {
+        const acao = talhao.ativo ? "desativar" : "ativar";
+        const confirmado = window.confirm(
+            `Deseja realmente ${acao} o talhão “${talhao.nome}”?`,
+        );
+
+        if (!confirmado) {
+            return;
+        }
+
+        setTalhaoEmAlteracao(talhao.id);
+        setMensagemStatus(null);
+        setErroStatus(null);
+
+        try {
+            const talhaoAtualizado = talhao.ativo
+                ? await desativarTalhao(propriedadeId, talhao.id)
+                : await ativarTalhao(propriedadeId, talhao.id);
+
+            setTalhoes((atuais) =>
+                atuais.map((item) =>
+                    item.id === talhaoAtualizado.id ? talhaoAtualizado : item,
+                ),
+            );
+            setMensagemStatus(
+                `Talhão ${talhaoAtualizado.ativo ? "ativado" : "desativado"} com sucesso.`,
+            );
+        } catch (erroRecebido) {
+            setErroStatus(
+                erroRecebido instanceof Error
+                    ? erroRecebido.message
+                    : `Não foi possível ${acao} o talhão.`,
+            );
+        } finally {
+            setTalhaoEmAlteracao(null);
+        }
     }
 
     if (!idValido) {
@@ -142,6 +188,18 @@ export function DetalhesPropriedadePage() {
             {mensagem && (
                 <p className="property-details-message" role="status">
                     {mensagem}
+                </p>
+            )}
+
+            {mensagemStatus && (
+                <p className="property-details-message" role="status">
+                    {mensagemStatus}
+                </p>
+            )}
+
+            {erroStatus && (
+                <p className="property-details-message property-details-message--error" role="alert">
+                    {erroStatus}
                 </p>
             )}
 
@@ -298,18 +356,36 @@ export function DetalhesPropriedadePage() {
                                     </strong>
                                 </div>
 
-                                <button
-                                    className="talhao-card-edit"
-                                    type="button"
-                                    onClick={() =>
-                                        navigate(
-                                            `/propriedades/${propriedade.id}/talhoes/${talhao.id}/editar`,
-                                        )
-                                    }
-                                >
-                                    Editar talhão
-                                    <span aria-hidden="true">→</span>
-                                </button>
+                                <div className="talhao-card-actions">
+                                    <button
+                                        className="talhao-card-edit"
+                                        type="button"
+                                        onClick={() =>
+                                            navigate(
+                                                `/propriedades/${propriedade.id}/talhoes/${talhao.id}/editar`,
+                                            )
+                                        }
+                                    >
+                                        Editar
+                                    </button>
+
+                                    <button
+                                        className={
+                                            talhao.ativo
+                                                ? "talhao-card-status talhao-card-status--deactivate"
+                                                : "talhao-card-status talhao-card-status--activate"
+                                        }
+                                        type="button"
+                                        disabled={talhaoEmAlteracao === talhao.id}
+                                        onClick={() => alterarStatusTalhao(talhao)}
+                                    >
+                                        {talhaoEmAlteracao === talhao.id
+                                            ? "Alterando..."
+                                            : talhao.ativo
+                                              ? "Desativar"
+                                              : "Ativar"}
+                                    </button>
+                                </div>
                             </li>
                         ))}
                     </ul>
