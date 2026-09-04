@@ -30,7 +30,7 @@ export function AppLayout() {
 
             <aside className={
                 menuAberto 
-                    ? "app-sidebar appsideber--open"
+                    ? "app-sidebar app-sidebar--open"
                     : "app-sidebar"
             }>
                 <header className="app-brand">
@@ -59,7 +59,7 @@ export function AppLayout() {
                     >
                         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
                             <path
-                                d="M3 21V10l9-7 9 7v11MB 21v-7h8v7M3 21h18"
+                                d="M3 21V10l9-7 9 7v11M8 21v-7h8v7M3 21h18"
                                 stroke="currentColor"
                                 strokeWidth="1.8"
                                 strokeLinecap="round"
