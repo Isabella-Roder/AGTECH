@@ -92,7 +92,14 @@ public class TalhaoService {
     }
 
     @Transactional(readOnly = true)
-    public TalhaoResponse buscarPorId(Long id) {
-        return  TalhaoResponse.from(buscarEntidade(id));
+    public TalhaoResponse buscarPorId(Long propriedadeId, Long talhaoId, Long usuarioId) {
+        acessoService.verificarAcesso(usuarioId, propriedadeId);
+
+        Talhao talhao = buscarEntidade(talhaoId);
+        if (!talhao.getPropriedade().getId().equals(propriedadeId)) {
+            throw new RegraDeNegocioException("Esse talhão não pertence a essa propriedade.");
+        }
+
+        return  TalhaoResponse.from(talhao);
     }
 }

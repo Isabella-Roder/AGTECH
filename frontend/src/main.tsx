@@ -19,6 +19,7 @@ import "./index.css";
 import { DetalhesPropriedadePage } from "./pages/DetalhesPropriedadePage";
 import { EditarPropriedadePage } from "./pages/EditarPropriedadePage";
 import { CadastroTalhaoPage } from "./pages/CadastroTalhaoPage";
+import { EditarTalhao } from "./pages/EditarTalhaoPage";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -62,6 +63,11 @@ createRoot(document.getElementById("root")!).render(
                     <Route 
                         path="/propriedades/:propriedadeId/talhoes/novo"
                         element={<CadastroTalhaoPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/talhoes/:talhaoId/editar"
+                        element={<EditarTalhao/>}
                     />
                     
                 </Route>

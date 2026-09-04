@@ -83,8 +83,9 @@ public class TalhaoController {
     @GetMapping("/{talhaoId}")
     public ResponseEntity<TalhaoResponse> buscarPorId(
         @PathVariable Long propriedadeId,
-        @PathVariable Long talhaoId
+        @PathVariable Long talhaoId,
+        @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
-        return ResponseEntity.ok(talhaoService.buscarPorId(talhaoId));
+        return ResponseEntity.ok(talhaoService.buscarPorId(propriedadeId, talhaoId, usuarioDetails.getId()));
     }
 }
