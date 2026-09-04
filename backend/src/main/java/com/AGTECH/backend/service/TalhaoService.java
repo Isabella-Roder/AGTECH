@@ -67,6 +67,9 @@ public class TalhaoService {
         acessoService.verificarAcesso(usuarioId, propriedadeId);
 
         Talhao talhao = buscarEntidade(talhaoId);
+        if (!talhao.getPropriedade().getId().equals(propriedadeId)) {
+            throw new RegraDeNegocioException("Esse talhão não pertence a essa propriedade.");
+        }
         talhao.desativar();
 
         return TalhaoResponse.from(talhaoRepository.save(talhao));
@@ -77,6 +80,9 @@ public class TalhaoService {
         acessoService.verificarAcesso(usuarioId, propriedadeId);
 
         Talhao talhao = buscarEntidade(talhaoId);
+        if (!talhao.getPropriedade().getId().equals(propriedadeId)) {
+            throw new RegraDeNegocioException("Esse talhão não pertence a essa propriedade.");
+        }
         talhao.ativar();
 
         return TalhaoResponse.from(talhaoRepository.save(talhao));
