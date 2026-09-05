@@ -9,14 +9,16 @@ public record PlantioResponse(
     UUID id,
     UUID safraId,
     LocalDate dataPlantio,
-    Double areaPlantadaHectares
+    Double areaPlantadaHectares,
+    String observacoes
 ) {
     public static PlantioResponse from(Plantio plantio) {
         return new PlantioResponse(
             plantio.getId(),
             plantio.getSafra().getId(),
             plantio.getDataPlantio(),
-            plantio.getAreaPlantadaHectares()
+            plantio.getAreaPlantadaHectares(),
+            plantio.getObservacoes()
         );
     }
 }
