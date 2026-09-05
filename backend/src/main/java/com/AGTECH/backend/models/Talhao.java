@@ -1,6 +1,7 @@
 package com.AGTECH.backend.models;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.AGTECH.backend.exception.RegraDeNegocioException;
 
@@ -22,8 +23,8 @@ import jakarta.persistence.Table;
 public class Talhao {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "propriedade_id", nullable = false)
@@ -87,7 +88,7 @@ public class Talhao {
         ativo = true;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 

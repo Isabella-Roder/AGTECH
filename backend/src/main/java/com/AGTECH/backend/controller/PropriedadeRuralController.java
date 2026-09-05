@@ -1,6 +1,7 @@
 package com.AGTECH.backend.controller;
 
 import java.net.URI;
+import java.util.UUID;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class PropriedadeRuralController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PropriedadeResponse> atualizar(
-        @PathVariable Long id,
+        @PathVariable UUID id,
         @Valid @RequestBody CadastroPropriedadeRequest request,
         @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
@@ -56,7 +57,7 @@ public class PropriedadeRuralController {
 
     @PatchMapping("/{id}/desativar")
     public ResponseEntity<PropriedadeResponse> desativar(
-        @PathVariable Long id,
+        @PathVariable UUID id,
         @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
         return ResponseEntity.ok(propriedadeRuralService.desativar(id, usuarioDetails.getId()));
@@ -64,7 +65,7 @@ public class PropriedadeRuralController {
 
     @PatchMapping("/{id}/ativar")
     public ResponseEntity<PropriedadeResponse> ativar(
-        @PathVariable Long id,
+        @PathVariable UUID id,
         @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
         return ResponseEntity.ok(propriedadeRuralService.ativar(id, usuarioDetails.getId()));
@@ -72,7 +73,7 @@ public class PropriedadeRuralController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PropriedadeResponse> buscarPorId(
-        @PathVariable Long id,
+        @PathVariable UUID id,
         @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
         return ResponseEntity.ok(propriedadeRuralService.buscarPorId(id, usuarioDetails.getId()));

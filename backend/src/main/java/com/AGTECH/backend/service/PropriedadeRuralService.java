@@ -1,6 +1,7 @@
 package com.AGTECH.backend.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,13 +37,13 @@ public class PropriedadeRuralService {
         this.acessoService = acessoService;
     }
 
-    private PropriedadeRural buscarEntidade(Long id) {
+    private PropriedadeRural buscarEntidade(UUID id) {
         return propriedadeRuralRepository.findById(id)
             .orElseThrow(() -> new RegraDeNegocioException("Propriedade rural não encontrada com ID: " + id));
     }
 
     @Transactional
-    public PropriedadeResponse cadastrar(CadastroPropriedadeRequest request, Long usuarioId) {
+    public PropriedadeResponse cadastrar(CadastroPropriedadeRequest request, UUID usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
             .orElseThrow(() -> new RegraDeNegocioException("Usuario não encontrado com ID: " + usuarioId));
 
@@ -61,7 +62,7 @@ public class PropriedadeRuralService {
     }
 
     @Transactional
-    public PropriedadeResponse atualizar(Long id, CadastroPropriedadeRequest request, Long usuarioId) {
+    public PropriedadeResponse atualizar(UUID id, CadastroPropriedadeRequest request, UUID usuarioId) {
         acessoService.verificarAcesso(usuarioId, id);
 
         PropriedadeRural propriedade = buscarEntidade(id);
@@ -75,7 +76,7 @@ public class PropriedadeRuralService {
     }
 
     @Transactional
-    public PropriedadeResponse desativar(Long id, Long usuarioId) {
+    public PropriedadeResponse desativar(UUID id, UUID usuarioId) {
         acessoService.verificarAcesso(usuarioId, id);
         PropriedadeRural propriedade = buscarEntidade(id);
         propriedade.desativar();
@@ -83,7 +84,7 @@ public class PropriedadeRuralService {
     }
 
     @Transactional
-    public PropriedadeResponse ativar(Long id, Long usuarioId) {
+    public PropriedadeResponse ativar(UUID id, UUID usuarioId) {
         acessoService.verificarAcesso(usuarioId, id);
         PropriedadeRural propriedade = buscarEntidade(id);
         propriedade.ativar();
@@ -91,13 +92,13 @@ public class PropriedadeRuralService {
     }
 
     @Transactional(readOnly = true)
-    public PropriedadeResponse buscarPorId(Long id, Long usuarioId) {
+    public PropriedadeResponse buscarPorId(UUID id, UUID usuarioId) {
         acessoService.verificarAcesso(usuarioId, id);
         return PropriedadeResponse.from(buscarEntidade(id));
     }
 
     @Transactional(readOnly = true)
-    public List<PropriedadeResponse> listarMinhas(Long usuarioId) {
+    public List<PropriedadeResponse> listarMinhas(UUID usuarioId) {
         return acessoRepository.findByUsuarioId(usuarioId)
             .stream().map(acesso -> PropriedadeResponse.from(acesso.getPropriedade())).toList();
     }

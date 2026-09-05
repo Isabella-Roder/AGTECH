@@ -1,9 +1,11 @@
 package com.AGTECH.backend.dtos;
 
+import java.util.UUID;
+
 import com.AGTECH.backend.models.PropriedadeRural;
 
 public record PropriedadeResponse(
-    Long id,
+    UUID id,
     String nome,
     String municipio,
     String estado,

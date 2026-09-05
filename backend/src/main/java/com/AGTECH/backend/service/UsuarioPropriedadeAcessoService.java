@@ -1,6 +1,7 @@
 package com.AGTECH.backend.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +35,7 @@ public class UsuarioPropriedadeAcessoService {
     }
 
     @Transactional
-    public AcessoResponse conceder(Long propriedadeId, ConcederAcessoRequest request) {
+    public AcessoResponse conceder(UUID propriedadeId, ConcederAcessoRequest request) {
         if (acessoRepository.existsByUsuarioIdAndPropriedadeId(request.usuarioId(), propriedadeId)) {
             throw new RegraDeNegocioException("Usuário já tem acesso a essa propriedade.");
         }
@@ -51,7 +52,7 @@ public class UsuarioPropriedadeAcessoService {
     }
 
     @Transactional
-    public void revogar(Long propriedadeId, Long acessoId) {
+    public void revogar(UUID propriedadeId, UUID acessoId) {
         UsuarioPropriedadeAcesso acesso = acessoRepository.findById(acessoId)
             .orElseThrow(() -> new RegraDeNegocioException("Acesso não encontrado com ID: " + acessoId));
 
@@ -63,14 +64,14 @@ public class UsuarioPropriedadeAcessoService {
     }
 
     @Transactional(readOnly = true)
-    public List<AcessoResponse> listarPorPropriedade(Long propriedadeId) {
+    public List<AcessoResponse> listarPorPropriedade(UUID propriedadeId) {
         return acessoRepository.findByPropriedadeId(propriedadeId).stream()
             .map(AcessoResponse::from)
             .toList();
     }
 
     @Transactional(readOnly = true)
-    public void verificarAcesso(Long usuarioId, Long propriedadeId) {
+    public void verificarAcesso(UUID usuarioId, UUID propriedadeId) {
         if (!acessoRepository.existsByUsuarioIdAndPropriedadeId(usuarioId, propriedadeId)) {
             throw new AcessoNegadoException("Você não tem acesso a essa propriedade.");
         }

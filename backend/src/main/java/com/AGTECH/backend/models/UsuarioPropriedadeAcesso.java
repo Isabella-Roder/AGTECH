@@ -1,5 +1,7 @@
 package com.AGTECH.backend.models;
 
+import java.util.UUID;
+
 import com.AGTECH.backend.enums.PapelAcesso;
 
 import jakarta.persistence.Column;
@@ -22,8 +24,8 @@ import jakarta.persistence.UniqueConstraint;
 public class UsuarioPropriedadeAcesso {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "usuario_id", nullable = false)
@@ -51,7 +53,7 @@ public class UsuarioPropriedadeAcesso {
         this.papel = papel;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 

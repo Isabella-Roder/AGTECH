@@ -1,13 +1,15 @@
 package com.AGTECH.backend.dtos;
 
+import java.util.UUID;
+
 import com.AGTECH.backend.enums.PapelAcesso;
 import com.AGTECH.backend.models.UsuarioPropriedadeAcesso;
 
 public record AcessoResponse(
-    Long id,
-    Long usuarioId,
+    UUID id,
+    UUID usuarioId,
     String usuarioNome,
-    Long propriedadeId,
+    UUID propriedadeId,
     PapelAcesso papel
 ) {
     public static AcessoResponse from(UsuarioPropriedadeAcesso acesso) {

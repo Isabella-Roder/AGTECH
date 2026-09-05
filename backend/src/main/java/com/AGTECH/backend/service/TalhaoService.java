@@ -1,6 +1,7 @@
 package com.AGTECH.backend.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,13 +31,13 @@ public class TalhaoService {
         this.acessoService = acessoService;
     }
 
-    private Talhao buscarEntidade(Long id) {
+    private Talhao buscarEntidade(UUID id) {
         return talhaoRepository.findById(id)
             .orElseThrow(() -> new RegraDeNegocioException("Talhão não encontrado com ID: " + id));
     }
 
     @Transactional
-    public TalhaoResponse cadastrar(Long propriedadeId, CadastroTalhaoRequest request, Long usuarioId) {
+    public TalhaoResponse cadastrar(UUID propriedadeId, CadastroTalhaoRequest request, UUID usuarioId) {
         acessoService.verificarAcesso(usuarioId, propriedadeId);
 
         PropriedadeRural propriedade = propriedadeRuralRepository.findById(propriedadeId)
@@ -48,7 +49,7 @@ public class TalhaoService {
     }
 
     @Transactional
-    public TalhaoResponse atualizar(Long propriedadeId, Long talhaoId, CadastroTalhaoRequest request, Long usuarioId) {
+    public TalhaoResponse atualizar(UUID propriedadeId, UUID talhaoId, CadastroTalhaoRequest request, UUID usuarioId) {
         acessoService.verificarAcesso(usuarioId, propriedadeId);
 
         Talhao talhao = buscarEntidade(talhaoId);
@@ -63,7 +64,7 @@ public class TalhaoService {
     }
 
     @Transactional
-    public TalhaoResponse desativar(Long propriedadeId, Long talhaoId, Long usuarioId) {
+    public TalhaoResponse desativar(UUID propriedadeId, UUID talhaoId, UUID usuarioId) {
         acessoService.verificarAcesso(usuarioId, propriedadeId);
 
         Talhao talhao = buscarEntidade(talhaoId);
@@ -76,7 +77,7 @@ public class TalhaoService {
     }
 
     @Transactional
-    public TalhaoResponse ativar(Long propriedadeId, Long talhaoId, Long usuarioId) {
+    public TalhaoResponse ativar(UUID propriedadeId, UUID talhaoId, UUID usuarioId) {
         acessoService.verificarAcesso(usuarioId, propriedadeId);
 
         Talhao talhao = buscarEntidade(talhaoId);
@@ -90,7 +91,7 @@ public class TalhaoService {
 
 
     @Transactional(readOnly = true)
-    public List<TalhaoResponse> listarPorPropriedade(Long propriedadeId, Long usuarioId) {
+    public List<TalhaoResponse> listarPorPropriedade(UUID propriedadeId, UUID usuarioId) {
         acessoService.verificarAcesso(usuarioId, propriedadeId);
 
         return talhaoRepository.findByPropriedadeId(propriedadeId).stream()
@@ -98,7 +99,7 @@ public class TalhaoService {
     }
 
     @Transactional(readOnly = true)
-    public TalhaoResponse buscarPorId(Long propriedadeId, Long talhaoId, Long usuarioId) {
+    public TalhaoResponse buscarPorId(UUID propriedadeId, UUID talhaoId, UUID usuarioId) {
         acessoService.verificarAcesso(usuarioId, propriedadeId);
 
         Talhao talhao = buscarEntidade(talhaoId);

@@ -1,10 +1,12 @@
 package com.AGTECH.backend.dtos;
 
+import java.util.UUID;
+
 import com.AGTECH.backend.models.Talhao;
 
 public record TalhaoResponse(
-    Long id,
-    Long propriedadeId,
+    UUID id,
+    UUID propriedadeId,
     String nome,
     Double areaHectares,
     boolean ativo

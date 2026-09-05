@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,8 +44,8 @@ class TalhaoServiceTest {
 
     @Test
     void deveCadastrarTalhaoQuandoUsuarioTemAcesso() {
-        Long usuarioId = 1L;
-        Long propriedadeId = 2L;
+        UUID usuarioId = UUID.randomUUID();
+        UUID propriedadeId = UUID.randomUUID();
 
         PropriedadeRural propriedade = mock(PropriedadeRural.class);
         when(propriedadeRuralRepository.findById(propriedadeId)).thenReturn(Optional.of(propriedade));
@@ -62,8 +63,8 @@ class TalhaoServiceTest {
 
     @Test
     void deveRecusarCadastroQuandoPropriedadeNaoEncontrada() {
-        Long usuarioId = 1L;
-        Long propriedadeId = 2L;
+        UUID usuarioId = UUID.randomUUID();
+        UUID propriedadeId = UUID.randomUUID();
 
         when(propriedadeRuralRepository.findById(propriedadeId)).thenReturn(Optional.empty());
 
@@ -75,8 +76,8 @@ class TalhaoServiceTest {
 
     @Test
     void deveRecusarCadastroQuandoUsuarioNaoTemAcesso() {
-        Long usuarioId = 1L;
-        Long propriedadeId = 2L;
+        UUID usuarioId = UUID.randomUUID();
+        UUID propriedadeId = UUID.randomUUID();
 
         doThrow(new AcessoNegadoException("Você não tem acesso a essa propriedade."))
             .when(acessoService).verificarAcesso(usuarioId, propriedadeId);
@@ -90,9 +91,9 @@ class TalhaoServiceTest {
 
     @Test
     void deveAtualizarTalhaoDaPropriedadeCorreta() {
-        Long usuarioId = 1L;
-        Long propriedadeId = 2L;
-        Long talhaoId = 3L;
+        UUID usuarioId = UUID.randomUUID();
+        UUID propriedadeId = UUID.randomUUID();
+        UUID talhaoId = UUID.randomUUID();
 
         PropriedadeRural propriedade = mock(PropriedadeRural.class);
         when(propriedade.getId()).thenReturn(propriedadeId);
@@ -110,12 +111,12 @@ class TalhaoServiceTest {
 
     @Test
     void deveRecusarAtualizarTalhaoDeOutraPropriedade() {
-        Long usuarioId = 1L;
-        Long propriedadeId = 2L;
-        Long talhaoId = 3L;
+        UUID usuarioId = UUID.randomUUID();
+        UUID propriedadeId = UUID.randomUUID();
+        UUID talhaoId = UUID.randomUUID();
 
         PropriedadeRural propriedade = mock(PropriedadeRural.class);
-        when(propriedade.getId()).thenReturn(99L);
+        when(propriedade.getId()).thenReturn(UUID.randomUUID());
 
         Talhao talhao = new Talhao(propriedade, "Antigo", 5.0);
         when(talhaoRepository.findById(talhaoId)).thenReturn(Optional.of(talhao));
@@ -128,9 +129,9 @@ class TalhaoServiceTest {
 
     @Test
     void deveDesativarTalhao() {
-        Long usuarioId = 1L;
-        Long propriedadeId = 2L;
-        Long talhaoId = 3L;
+        UUID usuarioId = UUID.randomUUID();
+        UUID propriedadeId = UUID.randomUUID();
+        UUID talhaoId = UUID.randomUUID();
 
         PropriedadeRural propriedade = mock(PropriedadeRural.class);
         when(propriedade.getId()).thenReturn(propriedadeId);
@@ -146,9 +147,9 @@ class TalhaoServiceTest {
 
     @Test
     void deveAtivarTalhao() {
-        Long usuarioId = 1L;
-        Long propriedadeId = 2L;
-        Long talhaoId = 3L;
+        UUID usuarioId = UUID.randomUUID();
+        UUID propriedadeId = UUID.randomUUID();
+        UUID talhaoId = UUID.randomUUID();
 
         PropriedadeRural propriedade = mock(PropriedadeRural.class);
         when(propriedade.getId()).thenReturn(propriedadeId);
@@ -165,9 +166,9 @@ class TalhaoServiceTest {
 
     @Test
     void deveBuscarTalhaoPorIdQuandoPertenceAPropriedade() {
-        Long usuarioId = 1L;
-        Long propriedadeId = 2L;
-        Long talhaoId = 3L;
+        UUID usuarioId = UUID.randomUUID();
+        UUID propriedadeId = UUID.randomUUID();
+        UUID talhaoId = UUID.randomUUID();
 
         PropriedadeRural propriedade = mock(PropriedadeRural.class);
         when(propriedade.getId()).thenReturn(propriedadeId);
@@ -183,12 +184,12 @@ class TalhaoServiceTest {
 
     @Test
     void deveRecusarBuscarTalhaoDeOutraPropriedade() {
-        Long usuarioId = 1L;
-        Long propriedadeId = 2L;
-        Long talhaoId = 3L;
+        UUID usuarioId = UUID.randomUUID();
+        UUID propriedadeId = UUID.randomUUID();
+        UUID talhaoId = UUID.randomUUID();
 
         PropriedadeRural propriedade = mock(PropriedadeRural.class);
-        when(propriedade.getId()).thenReturn(99L);
+        when(propriedade.getId()).thenReturn(UUID.randomUUID());
 
         Talhao talhao = new Talhao(propriedade, "Talhão", 5.0);
         when(talhaoRepository.findById(talhaoId)).thenReturn(Optional.of(talhao));

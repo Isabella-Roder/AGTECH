@@ -1,5 +1,7 @@
 package com.AGTECH.backend.service;
 
+import java.util.UUID;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +27,7 @@ public class UsuarioService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    private Usuario buscarEntidade(Long id) {
+    private Usuario buscarEntidade(UUID id) {
         return usuarioRepository.findById(id)
             .orElseThrow(() -> new RegraDeNegocioException("Usuario não encontrado com ID: " + id));
     }
@@ -51,7 +53,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public UsuarioResponse atualizar(Long id, AtualizacaoUsuarioRequest request) {
+    public UsuarioResponse atualizar(UUID id, AtualizacaoUsuarioRequest request) {
         Usuario usuario = buscarEntidade(id);
 
         if (!usuario.getEmail().equals(request.email()) && usuarioRepository.existsByEmailAndIdNot(request.email(), id)) {
@@ -65,7 +67,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public UsuarioResponse desativar(Long id) {
+    public UsuarioResponse desativar(UUID id) {
         Usuario usuario = buscarEntidade(id);
         usuario.desativar();
         Usuario salvo = usuarioRepository.save(usuario);
@@ -73,7 +75,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public UsuarioResponse ativar(Long id) {
+    public UsuarioResponse ativar(UUID id) {
         Usuario usuario = buscarEntidade(id);
         usuario.ativar();
         Usuario salvo = usuarioRepository.save(usuario);
@@ -81,7 +83,7 @@ public class UsuarioService {
     }
 
     @Transactional(readOnly = true)
-    public UsuarioResponse buscarPorId(Long id) {
+    public UsuarioResponse buscarPorId(UUID id) {
         return UsuarioResponse.from(buscarEntidade(id));
     }
 }

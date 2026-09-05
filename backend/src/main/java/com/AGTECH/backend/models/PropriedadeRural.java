@@ -1,6 +1,7 @@
 package com.AGTECH.backend.models;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.AGTECH.backend.exception.RegraDeNegocioException;
 
@@ -16,10 +17,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "propriedades_rurais")
 public class PropriedadeRural {
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false, length = 80)
     private String nome;
@@ -75,7 +76,7 @@ public class PropriedadeRural {
         ativo = true;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 

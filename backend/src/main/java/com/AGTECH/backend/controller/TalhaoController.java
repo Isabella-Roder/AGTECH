@@ -1,6 +1,7 @@
 package com.AGTECH.backend.controller;
 
 import java.net.URI;
+import java.util.UUID;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class TalhaoController {
 
     @PostMapping
     public ResponseEntity<TalhaoResponse> cadastrar(
-        @PathVariable Long propriedadeId,
+        @PathVariable UUID propriedadeId,
         @Valid @RequestBody CadastroTalhaoRequest request,
         @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
@@ -46,8 +47,8 @@ public class TalhaoController {
 
     @PutMapping("/{talhaoId}")
     public ResponseEntity<TalhaoResponse> atualizar(
-        @PathVariable Long propriedadeId,
-        @PathVariable Long talhaoId,
+        @PathVariable UUID propriedadeId,
+        @PathVariable UUID talhaoId,
         @Valid @RequestBody CadastroTalhaoRequest request,
         @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
@@ -56,8 +57,8 @@ public class TalhaoController {
 
     @PatchMapping("/{talhaoId}/desativar")
     public ResponseEntity<TalhaoResponse> desativar(
-        @PathVariable Long propriedadeId,
-        @PathVariable Long talhaoId,
+        @PathVariable UUID propriedadeId,
+        @PathVariable UUID talhaoId,
         @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
         return ResponseEntity.ok(talhaoService.desativar(propriedadeId, talhaoId, usuarioDetails.getId()));
@@ -65,8 +66,8 @@ public class TalhaoController {
 
     @PatchMapping("/{talhaoId}/ativar")
     public ResponseEntity<TalhaoResponse>  ativar(
-        @PathVariable Long propriedadeId,
-        @PathVariable Long talhaoId,
+        @PathVariable UUID propriedadeId,
+        @PathVariable UUID talhaoId,
         @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
         return ResponseEntity.ok(talhaoService.ativar(propriedadeId, talhaoId, usuarioDetails.getId()));
@@ -74,7 +75,7 @@ public class TalhaoController {
 
     @GetMapping
     public ResponseEntity<List<TalhaoResponse>> listar(
-        @PathVariable Long propriedadeId,
+        @PathVariable UUID propriedadeId,
         @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
         return ResponseEntity.ok(talhaoService.listarPorPropriedade(propriedadeId, usuarioDetails.getId()));
@@ -82,8 +83,8 @@ public class TalhaoController {
 
     @GetMapping("/{talhaoId}")
     public ResponseEntity<TalhaoResponse> buscarPorId(
-        @PathVariable Long propriedadeId,
-        @PathVariable Long talhaoId,
+        @PathVariable UUID propriedadeId,
+        @PathVariable UUID talhaoId,
         @AuthenticationPrincipal UsuarioDetails usuarioDetails
     ) {
         return ResponseEntity.ok(talhaoService.buscarPorId(propriedadeId, talhaoId, usuarioDetails.getId()));

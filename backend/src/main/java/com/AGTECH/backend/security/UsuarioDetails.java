@@ -2,6 +2,7 @@ package com.AGTECH.backend.security;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,7 +46,7 @@ public class UsuarioDetails implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {return true;}
 
-    public Long getId() {
+    public UUID getId() {
         return usuario.getId();
     }
 }

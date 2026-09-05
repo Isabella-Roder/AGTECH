@@ -1,9 +1,11 @@
 package com.AGTECH.backend.dtos;
 
+import java.util.UUID;
+
 import com.AGTECH.backend.models.Usuario;
 
 public record UsuarioResponse(
-    Long id,
+    UUID id,
     String nome,
     String email, 
     boolean ativo

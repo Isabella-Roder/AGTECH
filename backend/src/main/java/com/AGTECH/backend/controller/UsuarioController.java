@@ -1,6 +1,7 @@
 package com.AGTECH.backend.controller;
 
 import java.net.URI;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,7 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponse> atualizar(
-        @PathVariable Long id,
+        @PathVariable UUID id,
         @Valid @RequestBody AtualizacaoUsuarioRequest request
     ) {
         return ResponseEntity.ok(usuarioService.atualizar(id, request));
@@ -48,18 +49,18 @@ public class UsuarioController {
 
     @PatchMapping("/{id}/desativar")
     public ResponseEntity<UsuarioResponse> desativar(
-        @PathVariable Long id
+        @PathVariable UUID id
     ) {
         return ResponseEntity.ok(usuarioService.desativar(id));
     }
 
     @PatchMapping("/{id}/ativar")
-    public ResponseEntity<UsuarioResponse> ativar(@PathVariable Long id) {
+    public ResponseEntity<UsuarioResponse> ativar(@PathVariable UUID id) {
         return ResponseEntity.ok(usuarioService.ativar(id));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<UsuarioResponse> buscarPorId(@PathVariable UUID id) {
         return ResponseEntity.ok(usuarioService.buscarPorId(id));
     }
 }

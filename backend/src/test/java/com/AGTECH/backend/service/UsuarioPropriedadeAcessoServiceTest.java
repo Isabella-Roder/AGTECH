@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,10 +44,11 @@ class UsuarioPropriedadeAcessoServiceTest {
 
     @Test
     void deveRecusarConcederAcessoDuplicado() {
-        Long propriedadeId = 1L;
-        ConcederAcessoRequest request = new ConcederAcessoRequest(2L, PapelAcesso.GESTOR);
+        UUID propriedadeId = UUID.randomUUID();
+        UUID usuarioId = UUID.randomUUID();
+        ConcederAcessoRequest request = new ConcederAcessoRequest(usuarioId, PapelAcesso.GESTOR);
 
-        when(acessoRepository.existsByUsuarioIdAndPropriedadeId(2L, propriedadeId))
+        when(acessoRepository.existsByUsuarioIdAndPropriedadeId(usuarioId, propriedadeId))
             .thenReturn(true);
 
         assertThrows(RegraDeNegocioException.class, () -> service.conceder(propriedadeId, request));
@@ -54,42 +56,50 @@ class UsuarioPropriedadeAcessoServiceTest {
 
     @Test
     void deveRecusarRevogarAcessoDeOutraPropriedade() {
+        UUID propriedadeId = UUID.randomUUID();
+        UUID outraPropriedadeId = UUID.randomUUID();
+        UUID acessoId = UUID.randomUUID();
+
         PropriedadeRural propriedadeMock = mock(PropriedadeRural.class);
-        when(propriedadeMock.getId()).thenReturn(5L);
+        when(propriedadeMock.getId()).thenReturn(propriedadeId);
 
         UsuarioPropriedadeAcesso acesso = new UsuarioPropriedadeAcesso(new Usuario(), propriedadeMock, PapelAcesso.GESTOR);
 
-        when(acessoRepository.findById(10L)).thenReturn(Optional.of(acesso));
+        when(acessoRepository.findById(acessoId)).thenReturn(Optional.of(acesso));
 
-        assertThrows(RegraDeNegocioException.class, () -> service.revogar(999L, 10L));
+        assertThrows(RegraDeNegocioException.class, () -> service.revogar(outraPropriedadeId, acessoId));
     }
 
     @Test
     void deveRevogarAcessoDaPropriedadeCorreta() {
+        UUID propriedadeId = UUID.randomUUID();
+        UUID acessoId = UUID.randomUUID();
+
         PropriedadeRural propriedadeMock = mock(PropriedadeRural.class);
-        when(propriedadeMock.getId()).thenReturn(5L);
+        when(propriedadeMock.getId()).thenReturn(propriedadeId);
 
         UsuarioPropriedadeAcesso acesso = new UsuarioPropriedadeAcesso(new Usuario(), propriedadeMock, PapelAcesso.GESTOR);
 
-        when(acessoRepository.findById(10L)).thenReturn(Optional.of(acesso));
+        when(acessoRepository.findById(acessoId)).thenReturn(Optional.of(acesso));
 
-        service.revogar(5L, 10L);
+        service.revogar(propriedadeId, acessoId);
 
         verify(acessoRepository).delete(acesso);
     }
 
     @Test
     void deveConcederAcessoPropriedade() {
-        Long propriedadeId = 1L;
-        ConcederAcessoRequest request = new ConcederAcessoRequest(2L, PapelAcesso.GESTOR);
-        
+        UUID propriedadeId = UUID.randomUUID();
+        UUID usuarioId = UUID.randomUUID();
+        ConcederAcessoRequest request = new ConcederAcessoRequest(usuarioId, PapelAcesso.GESTOR);
+
         Usuario usuario = new Usuario();
         usuario.setNome("Isabella");
 
         PropriedadeRural propriedadeMock = mock(PropriedadeRural.class);
 
-        when(acessoRepository.existsByUsuarioIdAndPropriedadeId(2L, propriedadeId)).thenReturn(false);
-        when(usuarioRepository.findById(2L)).thenReturn(Optional.of(usuario));
+        when(acessoRepository.existsByUsuarioIdAndPropriedadeId(usuarioId, propriedadeId)).thenReturn(false);
+        when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuario));
         when(propriedadeRuralRepository.findById(propriedadeId)).thenReturn(Optional.of(propriedadeMock));
         when(acessoRepository.save(any(UsuarioPropriedadeAcesso.class)))
             .thenAnswer(invocacao -> invocacao.getArgument(0));

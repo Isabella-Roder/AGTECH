@@ -1,6 +1,7 @@
 package com.AGTECH.backend.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class UsuarioPropriedadeAcessoController {
 
     @PostMapping
     public ResponseEntity<AcessoResponse> conceder(
-        @PathVariable Long propriedadeId,
+        @PathVariable UUID propriedadeId,
         @Valid @RequestBody ConcederAcessoRequest request
     ) {
         AcessoResponse response = acessoService.conceder(propriedadeId, request);
@@ -41,15 +42,15 @@ public class UsuarioPropriedadeAcessoController {
 
     @DeleteMapping("/{acessoId}")
     public ResponseEntity<Void> revogar(
-        @PathVariable Long propriedadeId,
-        @PathVariable Long acessoId
+        @PathVariable UUID propriedadeId,
+        @PathVariable UUID acessoId
     ) {
         acessoService.revogar(propriedadeId, acessoId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<AcessoResponse>> listar(@PathVariable Long propriedadeId) {
+    public ResponseEntity<List<AcessoResponse>> listar(@PathVariable UUID propriedadeId) {
         return ResponseEntity.ok(acessoService.listarPorPropriedade(propriedadeId));
     }
 }
