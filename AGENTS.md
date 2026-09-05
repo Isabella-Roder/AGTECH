@@ -341,12 +341,22 @@ Exemplo:
     DTOs, controller)
 -   autenticação; ✅ concluído (JwtService, UsuarioDetailsService,
     AuthController com login, JwtAuthFilter, testado ponta a ponta)
--   propriedade rural; 🔶 em andamento (entidade e migration prontas;
-    faltam repository, service e controller)
--   talhão;
--   cultura;
--   safra;
--   plantio.
+-   propriedade rural; ✅ concluído (entidade, migration, repository,
+    service, DTOs, controller, autorização por recurso)
+-   talhão; ✅ concluído (idem, com autorização por recurso via
+    propriedade)
+-   cultura; ✅ concluído (catálogo simples, entidade, migration,
+    repository, service, DTOs, controller)
+-   safra; ✅ concluído (entidade com transições de status, migration,
+    repository, service, DTOs, controller, autorização via talhão)
+-   plantio. ✅ concluído (entidade, migration, repository, service,
+    DTOs, controller, autorização em cascata via safra → talhão →
+    propriedade)
+
+V0.1 completa: todas as entidades da fundação estão implementadas,
+com todos os ids padronizados em UUID e testes unitários cobrindo os
+services (incluindo os casos de autorização cruzada entre
+propriedades/talhões/safras).
 
 Também já modelada, junto de propriedade rural, a entidade
 `UsuarioPropriedadeAcesso` (vínculo N:N imutável entre usuário e
