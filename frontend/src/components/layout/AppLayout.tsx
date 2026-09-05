@@ -69,6 +69,27 @@ export function AppLayout() {
 
                         Propriedades
                     </NavLink>
+
+                    <NavLink
+                        className={({ isActive }) =>
+                            isActive
+                                ? "app-navigation-link app-navigation-link--active"
+                                : "app-navigation-link"
+                        }
+                        to="/culturas"
+                        onClick={fecharMenu}
+                    >
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M12 21V10m0 3c-4 0-7-2.5-7-7 4 0 7 2.5 7 7Zm0-3c0-4.5 3-7 7-7 0 4.5-3 7-7 7Z"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                        Culturas
+                    </NavLink>
                 </nav>
 
                 <footer className="app-sidebar-footer">

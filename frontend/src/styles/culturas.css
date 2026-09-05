@@ -1,0 +1,119 @@
+.culturas-page {
+    width: min(1240px, 100%);
+    margin: 0 auto;
+    padding: clamp(26px, 4vw, 48px);
+}
+
+.culturas-section {
+    overflow: hidden;
+    padding: clamp(20px, 3vw, 30px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--paper);
+    box-shadow: var(--shadow-md);
+}
+
+.culturas-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+}
+
+.culturas-section-header h2 {
+    margin: 0;
+    color: var(--forest-950);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+}
+
+.culturas-section-header p {
+    margin: 5px 0 0;
+    color: var(--ink-500);
+    font-size: .8rem;
+}
+
+.culturas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 245px), 1fr));
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cultura-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-height: 105px;
+    padding: 19px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: linear-gradient(145deg, white, var(--sage-50));
+    transition: var(--transition);
+}
+
+.cultura-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--sage-300);
+    box-shadow: var(--shadow-sm);
+}
+
+.cultura-card-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 15px;
+    color: var(--forest-900);
+    background: var(--sage-100);
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.cultura-card span {
+    color: var(--ink-500);
+    font-size: .65rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.cultura-card h3 {
+    margin: 4px 0 0;
+    color: var(--forest-950);
+    font-family: var(--font-display);
+    font-size: 1.08rem;
+}
+
+.culturas-section .page-feedback--error p {
+    margin: 0 0 13px;
+}
+
+.culturas-section .page-feedback--error button {
+    min-height: 39px;
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    background: var(--danger);
+    font-weight: 800;
+    cursor: pointer;
+}
+
+@media (max-width: 620px) {
+    .culturas-page {
+        padding: 22px 14px;
+    }
+
+    .culturas-section-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

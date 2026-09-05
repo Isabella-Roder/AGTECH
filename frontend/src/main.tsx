@@ -20,6 +20,8 @@ import { DetalhesPropriedadePage } from "./pages/DetalhesPropriedadePage";
 import { EditarPropriedadePage } from "./pages/EditarPropriedadePage";
 import { CadastroTalhaoPage } from "./pages/CadastroTalhaoPage";
 import { EditarTalhao } from "./pages/EditarTalhaoPage";
+import { CadastroCultura } from "./pages/CadastroCulturaPage";
+import { CulturasPage } from "./pages/CulturasPage";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -68,6 +70,17 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                         path="/propriedades/:propriedadeId/talhoes/:talhaoId/editar"
                         element={<EditarTalhao/>}
+                    />
+
+                    {/** Culturas  */}
+                    <Route
+                        path="/culturas"
+                        element={<CulturasPage />}
+                    />
+
+                    <Route
+                        path="/culturas/nova"
+                        element={<CadastroCultura />}
                     />
                     
                 </Route>

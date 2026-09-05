@@ -39,11 +39,11 @@ machine learning serão adicionados somente quando houver requisitos concretos.
 - cadastro, detalhes e edição de propriedades;
 - cadastro, listagem e edição de talhões;
 - ativação e desativação de talhões com confirmação;
+- cadastro e listagem de culturas;
 - estados de carregamento, erro, sucesso e conteúdo vazio.
 
 ### Próximas entregas
 
-- interface de culturas;
 - safras e plantios;
 - ampliação dos testes de API, autorização e interface.
 
@@ -128,8 +128,8 @@ AGTECH/
   propriedade, o usuário recebe o papel `PROPRIETARIO`.
 - **Talhão:** divisão produtiva pertencente a uma propriedade, com nome, área
   em hectares e status.
-- **Cultura:** cultura agrícola identificada por nome único. A API já existe;
-  sua interface ainda será criada.
+- **Cultura:** cultura agrícola identificada por nome único, disponível na API
+  e no catálogo do frontend.
 
 Consulte o [ADR de modelagem da V0.1](docs/architecture/0001-modelagem-v0.1-fundacao.md)
 para conhecer as decisões de domínio e autorização.
@@ -203,6 +203,8 @@ aponta atualmente para `http://localhost:8080`.
 | `/propriedades/:id/editar` | Autenticado | Edição da propriedade |
 | `/propriedades/:propriedadeId/talhoes/novo` | Autenticado | Cadastro de talhão |
 | `/propriedades/:propriedadeId/talhoes/:talhaoId/editar` | Autenticado | Edição de talhão |
+| `/culturas` | Autenticado | Catálogo de culturas |
+| `/culturas/nova` | Autenticado | Cadastro de cultura |
 
 Rotas desconhecidas são redirecionadas para o login.
 
@@ -315,11 +317,10 @@ O frontend ainda não possui uma suíte automatizada de testes.
 
 ## Roadmap resumido
 
-1. criar a interface de culturas;
-2. implementar safras;
-3. implementar plantios;
-4. ampliar testes de integração e segurança;
-5. avançar para módulos futuros apenas conforme requisitos concretos.
+1. implementar safras;
+2. implementar plantios;
+3. ampliar testes de integração e segurança;
+4. avançar para módulos futuros apenas conforme requisitos concretos.
 
 ## Contribuição
 
