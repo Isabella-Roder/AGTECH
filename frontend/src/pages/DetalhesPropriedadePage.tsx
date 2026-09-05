@@ -360,9 +360,9 @@ export function DetalhesPropriedadePage() {
                                     <button
                                         className="talhao-card-edit"
                                         type="button"
-                                        onClick={() => navigate(`/propriedades/${propriedade.id}/talhoes/${talhao.id}/safras/nova`)}
+                                        onClick={() => navigate(`/propriedades/${propriedade.id}/talhoes/${talhao.id}/safras`)}
                                     >
-                                        Nova safra
+                                        Ver safras
                                     </button>
                                     <button
                                         className="talhao-card-edit"
