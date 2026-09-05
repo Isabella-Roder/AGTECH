@@ -25,6 +25,8 @@ import { CulturasPage } from "./pages/CulturasPage";
 import { CadastroSafra } from "./pages/CadastroSafraPage";
 import { SafraPage } from "./pages/SafraPage";
 import { CadastroPlantioPage } from "./pages/CadastroPlantioPage";
+import { PlantiosPage } from "./pages/PlantiosPage";
+import { EditarPlantioPage } from "./pages/EditarPlantioPage";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -101,8 +103,18 @@ createRoot(document.getElementById("root")!).render(
                     {/** Plantio */}
 
                     <Route
+                        path="/propriedades/:propriedadeId/talhoes/:talhaoId/safras/:safraId/plantios"
+                        element={<PlantiosPage />}
+                    />
+
+                    <Route
                         path="/propriedades/:propriedadeId/talhoes/:talhaoId/safras/:safraId/plantios/novo"
                         element={<CadastroPlantioPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/talhoes/:talhaoId/safras/:safraId/plantios/:plantioId/editar"
+                        element={<EditarPlantioPage />}
                     />
                     
                 </Route>

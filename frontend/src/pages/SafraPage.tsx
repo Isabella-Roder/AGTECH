@@ -269,6 +269,16 @@ export function SafraPage() {
                                     <div><dt>Fim previsto</dt><dd>{formatarData(safra.dataFimPrevisto)}</dd></div>
                                 </dl>
 
+                                <div className="safra-card-actions">
+                                    <button
+                                        type="button"
+                                        className="safra-action safra-action--planting"
+                                        onClick={() => navigate(`/propriedades/${propriedadeId}/talhoes/${talhaoId}/safras/${safra.id}/plantios`)}
+                                    >
+                                        Ver plantios
+                                    </button>
+                                </div>
+
                                 {safra.status === "PLANEJADA" && (
                                     <div className="safra-card-actions">
                                         <button type="button" className="safra-action safra-action--start" disabled={safraEmAlteracao === safra.id} onClick={() => handleIniciarSafra(safra)}>
@@ -282,13 +292,6 @@ export function SafraPage() {
 
                                 {safra.status === "EM_ANDAMENTO" && (
                                     <div className="safra-card-actions">
-                                        <button
-                                            type="button"
-                                            className="safra-action safra-action--planting"
-                                            onClick={() => navigate(`/propriedades/${propriedadeId}/talhoes/${talhaoId}/safras/${safra.id}/plantios/novo`)}
-                                        >
-                                            Registrar plantio
-                                        </button>
                                         <button type="button" className="safra-action safra-action--finish" disabled={safraEmAlteracao === safra.id} onClick={() => handleFinalizarSafra(safra)}>
                                             {safraEmAlteracao === safra.id
                                                 ? "Finalizando..."
