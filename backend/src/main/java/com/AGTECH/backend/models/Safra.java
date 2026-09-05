@@ -27,11 +27,11 @@ import jakarta.persistence.Table;
     indexes = {
         @Index (
             name = "idx_talhao_safra",
-            columnList = "fk_safra_talhao"
+            columnList = "talhao_id"
         ),
         @Index (
             name = "idx_cultura_safra",
-            columnList = "fk_safra_cultura"
+            columnList = "cultura_id"
         )
     }
 )
@@ -43,18 +43,18 @@ public class Safra {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(
-        name = "fk_safra_talhao",
+        name = "talhao_id",
         nullable = false,
-        foreignKey = @ForeignKey(name = "fk_talhao")
+        foreignKey = @ForeignKey(name = "fk_safras_talhao")
     )
     private Talhao talhao;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(
-        name = "fk_safra_cultura",
+        name = "cultura_id",
         nullable = false,
-        foreignKey = @ForeignKey(name = "fk_cultura")
-    ) 
+        foreignKey = @ForeignKey(name = "fk_safras_cultura")
+    )
     private Cultura cultura;
 
     @Column(nullable = false, length = 70)

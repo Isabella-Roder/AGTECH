@@ -21,7 +21,7 @@ import jakarta.persistence.Table;
     indexes = {
         @Index (
             name = "idx_safra_plantio",
-            columnList = "fk_plantio_safra"
+            columnList = "safra_id"
         )
     }
 )
@@ -33,9 +33,9 @@ public class Plantio {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(
-        name = "fk_plantio_safra",
+        name = "safra_id",
         nullable = false,
-        foreignKey = @ForeignKey(name = "fk_safra")
+        foreignKey = @ForeignKey(name = "fk_plantios_safra")
     )
     private Safra safra;
 
