@@ -88,6 +88,10 @@ public class Plantio {
         this.dataPlantio = dataPlantio;
     }
 
+    public void setAreaPlantadaHectares(Double areaPlantadaHectares) {
+        this.areaPlantadaHectares = areaPlantadaHectares;
+    }
+
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }

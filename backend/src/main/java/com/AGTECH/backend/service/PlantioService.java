@@ -80,6 +80,7 @@ public class PlantioService {
         }
 
         plantio.setDataPlantio(request.dataPlantio());
+        plantio.setAreaPlantadaHectares(request.areaPlantadaHectares());
         plantio.setObservacoes(request.observacoes());
 
         return PlantioResponse.from(plantio);
