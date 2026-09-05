@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { listarCulturas, type Cultura } from "../api/cultura";
-import { listarSafras, type Safra } from "../api/safra";
+import { cancelarSafra, finalizarSafra, iniciarSafra, listarSafras, type Safra } from "../api/safra";
 import "../styles/safras.css";
 
 const rotulosStatus: Record<Safra["status"], string> = {
@@ -22,6 +22,10 @@ export function SafraPage() {
     const location = useLocation();
     const idsValidos = Boolean(propriedadeId && talhaoId);
     const mensagem = (location.state as { mensagem?: string } | null)?.mensagem;
+
+    const [safraEmAlteracao, setSafraEmAlteracao] = useState<string | null>(null);
+    const [mensagemStatus, setMensagemStatus] = useState<string | null>(null);
+    const [erroStatus, setErroStatus] = useState<string | null>(null);
 
     useEffect(() => {
         let paginaAtiva = true;
@@ -75,6 +79,126 @@ export function SafraPage() {
         );
     }
 
+    async function handleIniciarSafra(safra: Safra) {
+        const confirmado = window.confirm(
+            `Deseja realmente iniciar a safra "${safra.nome}"?`
+        );
+
+        if (!confirmado) {
+            return;
+        }
+
+        setSafraEmAlteracao(safra.id);
+        setMensagemStatus(null);
+        setErroStatus(null);
+
+        try {
+            const safraAtualizada = await iniciarSafra(
+                propriedadeId,
+                talhaoId, 
+                safra.id
+            );
+
+            setSafras((safrasAtuais) => 
+                safrasAtuais.map((item) => 
+                    item.id === safraAtualizada.id
+                        ? safraAtualizada
+                        : item,
+                ),
+            );
+
+            setMensagemStatus("Safra iniciada com sucesso.");
+        } catch (erroRecebido) {
+            setErroStatus(
+                erroRecebido instanceof Error
+                    ? erroRecebido.message
+                    : "Não foi possivel iniciar a safra."
+            );
+        } finally {
+            setSafraEmAlteracao(null);
+        }
+    }
+
+    async function handleFinalizarSafra(safra: Safra) {
+        const confirmado = window.confirm(
+            `Deseja realmente finalizar a safra "${safra.nome}"?`
+        );
+
+        if (!confirmado) {
+            return;
+        }
+
+        setSafraEmAlteracao(safra.id);
+        setMensagemStatus(null);
+        setErroStatus(null);
+
+        try {
+            const safraAtualizada = await finalizarSafra(
+                propriedadeId,
+                talhaoId,
+                safra.id
+            );
+
+            setSafras((safrasAtuais) => 
+                safrasAtuais.map((item) => 
+                    item.id === safraAtualizada.id 
+                        ? safraAtualizada
+                        : item,
+                ),
+            );
+
+            setMensagemStatus("Safra finalizada com sucesso.");
+        } catch (erroRecebido) {
+            setErroStatus(
+                erroRecebido instanceof Error
+                    ? erroRecebido.message
+                    : "Não foi possivel finalizar a safra."
+            );
+        } finally {
+            setSafraEmAlteracao(null);
+        }
+    }
+
+    async function handleCancelarSafra(safra: Safra) {
+        const confirmado = window.confirm(
+            `Deseja realmente cancelar a safra "${safra.nome}"?`
+        );
+
+        if (!confirmado) {
+            return;
+        }
+
+        setSafraEmAlteracao(safra.id);
+        setMensagemStatus(null);
+        setErroStatus(null);
+
+        try {
+            const safraAtualizada = await cancelarSafra (
+                propriedadeId,
+                talhaoId,
+                safra.id
+            );
+
+            setSafras((safasAtuais) =>
+                safasAtuais.map((item) =>
+                    item.id === safraAtualizada.id
+                        ? safraAtualizada
+                        : item,
+                ),  
+            );
+
+            setMensagemStatus("Safra cancelada com sucesso.");
+        } catch (erroRecebido) {
+            setErroStatus(
+                erroRecebido instanceof Error
+                    ? erroRecebido.message
+                    : "Não foi possivel cancelar a safra."
+            );
+        } finally {
+            setSafraEmAlteracao(null);
+        }
+    }
+
     return (
         <main className="safras-page">
             <button className="property-details-back" type="button" onClick={() => navigate(`/propriedades/${propriedadeId}`)}>
@@ -93,6 +217,18 @@ export function SafraPage() {
             </header>
 
             {mensagem && <p className="page-message page-message--success" role="status">{mensagem}</p>}
+
+            {mensagemStatus && (
+                <p className="page-message page-message--success" role="status">
+                    {mensagemStatus}
+                </p>
+            )}
+
+            {erroStatus && (
+                <p className="page-message page-message--error" role="alert">
+                    {erroStatus}
+                </p>
+            )}
 
             <section className="safras-section">
                 {carregando && <div className="page-feedback" role="status">Carregando safras...</div>}
@@ -132,6 +268,43 @@ export function SafraPage() {
                                     <div><dt>Início</dt><dd>{formatarData(safra.dataInicio)}</dd></div>
                                     <div><dt>Fim previsto</dt><dd>{formatarData(safra.dataFimPrevisto)}</dd></div>
                                 </dl>
+
+                                {safra.status === "PLANEJADA" && (
+                                    <div className="safra-card-actions">
+                                        <button type="button" className="safra-action safra-action--start" disabled={safraEmAlteracao === safra.id} onClick={() => handleIniciarSafra(safra)}>
+                                            {safraEmAlteracao === safra.id
+                                                ? "Iniciando..."
+                                                : "Iniciar safra"
+                                            }
+                                        </button>
+                                    </div>
+                                )}
+
+                                {safra.status === "EM_ANDAMENTO" && (
+                                    <div className="safra-card-actions">
+                                        <button type="button" className="safra-action safra-action--finish" disabled={safraEmAlteracao === safra.id} onClick={() => handleFinalizarSafra(safra)}>
+                                            {safraEmAlteracao === safra.id
+                                                ? "Finalizando..."
+                                                : "Finalizar safra"
+                                            }
+                                        </button>
+                                    </div>
+                                )}
+
+                                {(
+                                    safra.status === "PLANEJADA" ||
+                                    safra.status === "EM_ANDAMENTO"
+                                ) && (
+                                    <div className="safra-card-actions">
+                                        <button type="button" className="safra-action safra-action--cancel" disabled={safraEmAlteracao === safra.id} onClick={() => handleCancelarSafra(safra)}>
+                                            {safraEmAlteracao === safra.id
+                                                ? "Cancelando..."
+                                                : "Cancelar safra"
+                                            }
+                                        </button>
+                                    </div>
+                                )}
+
                             </li>
                         ))}
                     </ul>

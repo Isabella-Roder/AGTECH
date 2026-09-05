@@ -16,4 +16,48 @@
 .safra-status--cancelada { color: var(--danger); background: var(--danger-soft); }
 .safras-section .page-feedback--error p { margin: 0 0 12px; }
 .safras-section .page-feedback--error button { min-height: 39px; padding: 8px 14px; border: 0; border-radius: 10px; color: white; background: var(--danger); font-weight: 800; cursor: pointer; }
+.safra-card-actions {
+    display: flex;
+    gap: 9px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+}
+
+.safra-action {
+    min-height: 40px;
+    flex: 1;
+    padding: 9px 13px;
+    border: 0;
+    border-radius: 10px;
+    font-size: 0.73rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.safra-action--start {
+    color: white;
+    background: var(--forest-600);
+}
+
+.safra-action--start:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: var(--forest-700);
+}
+
+.safra-action:disabled {
+    cursor: wait;
+    opacity: 0.55;
+}
+
+.safra-action--finish {
+    color: white;
+    background: #37506b;
+}
+
+.safra-action--finish:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: #293f57;
+}
 @media (max-width: 620px) { .safras-page { padding: 22px 14px; } }
