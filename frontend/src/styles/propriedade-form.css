@@ -53,6 +53,30 @@
 .propriedade-form-cancel:hover:not(:disabled) { border-color: var(--sage-300); background: var(--sage-50); }
 .propriedade-form-submit { border: 0; color: white; background: linear-gradient(135deg, var(--forest-700), var(--forest-500)); box-shadow: 0 10px 23px rgb(27 74 46 / 20%); }
 
+.propriedade-form-field textarea {
+    width: 100%;
+    padding: 14px 15px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    color: var(--ink-900);
+    background: #fbfcf8;
+    resize: vertical;
+    transition: var(--transition);
+}
+
+.propriedade-form-field textarea:focus {
+    border-color: var(--forest-500);
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 4px rgb(82 148 95 / 13%);
+}
+
+.propriedade-form-field small {
+    color: var(--ink-500);
+    font-size: 0.7rem;
+    text-align: right;
+}
+
 @media (max-width: 620px) {
     .propriedade-form-page { padding: 18px 14px; }
     .propriedade-form-card { border-radius: var(--radius-lg); }

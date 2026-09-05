@@ -60,4 +60,14 @@
     transform: translateY(-2px);
     background: #293f57;
 }
+
+.safra-action--planting {
+    color: white;
+    background: linear-gradient(135deg, var(--forest-700), var(--forest-500));
+}
+
+.safra-action--planting:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 9px 20px rgb(27 74 46 / 20%);
+}
 @media (max-width: 620px) { .safras-page { padding: 22px 14px; } }
