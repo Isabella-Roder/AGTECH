@@ -16,8 +16,8 @@ export function EditarPropriedadePage() {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const propriedadeId = Number(id);
-    const idValido = Number.isInteger(propriedadeId) && propriedadeId > 0;
+    const propriedadeId = id ?? "";
+    const idValido = propriedadeId.length > 0;
 
     useEffect(() => {
         let componenteAtivo = true;

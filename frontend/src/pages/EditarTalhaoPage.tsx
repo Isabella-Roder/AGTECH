@@ -15,14 +15,9 @@ export function EditarTalhao() {
     const { propriedadeId, talhaoId } = useParams();
     const navigate = useNavigate();
     
-    const idPropriedade = Number(propriedadeId);
-    const idTalhao = Number(talhaoId);
-
-    const idsValidos =
-        Number.isInteger(idPropriedade) &&
-        idPropriedade > 0 &&
-        Number.isInteger(idTalhao) &&
-        idTalhao > 0;
+    const idPropriedade = propriedadeId ?? "";
+    const idTalhao = talhaoId ?? "";
+    const idsValidos = idPropriedade.length > 0 && idTalhao.length > 0;
 
     useEffect(() => {
         let componenteAtivo = true;
@@ -101,7 +96,7 @@ export function EditarTalhao() {
     }
 
     function voltarParaPropriedade() {
-        if (Number.isInteger(idPropriedade) && idPropriedade > 0) {
+        if (idPropriedade.length > 0) {
             navigate(`/propriedades/${idPropriedade}`);
             return;
         }

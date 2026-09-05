@@ -16,15 +16,15 @@ export function DetalhesPropriedadePage() {
     const [tentativa, setTentativa] = useState(0);
 
     const [talhoes, setTalhoes] = useState<Talhao[]>([]);
-    const [talhaoEmAlteracao, setTalhaoEmAlteracao] = useState<number | null>(null);
+    const [talhaoEmAlteracao, setTalhaoEmAlteracao] = useState<string | null>(null);
     const [mensagemStatus, setMensagemStatus] = useState<string | null>(null);
     const [erroStatus, setErroStatus] = useState<string | null>(null);
     
     const { id } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
-    const propriedadeId = Number(id);
-    const idValido = Number.isInteger(propriedadeId) && propriedadeId > 0;
+    const propriedadeId = id ?? "";
+    const idValido = propriedadeId.length > 0;
     const mensagem = (
         location.state as { mensagem?: string } | null
     )?.mensagem;
@@ -357,6 +357,13 @@ export function DetalhesPropriedadePage() {
                                 </div>
 
                                 <div className="talhao-card-actions">
+                                    <button
+                                        className="talhao-card-edit"
+                                        type="button"
+                                        onClick={() => navigate(`/propriedades/${propriedade.id}/talhoes/${talhao.id}/safras/nova`)}
+                                    >
+                                        Nova safra
+                                    </button>
                                     <button
                                         className="talhao-card-edit"
                                         type="button"

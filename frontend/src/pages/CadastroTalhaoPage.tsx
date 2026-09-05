@@ -13,8 +13,8 @@ export function CadastroTalhaoPage() {
     const {propriedadeId} = useParams();
     const navigate = useNavigate();
 
-    const id = Number(propriedadeId);
-    const idValido = Number.isInteger(id) && id > 0;
+    const id = propriedadeId ?? "";
+    const idValido = id.length > 0;
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();

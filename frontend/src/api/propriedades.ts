@@ -1,7 +1,7 @@
 import { apiFetch } from "./cliente";
 
 export interface Propriedade {
-    id: number;
+    id: string;
     nome: string;
     municipio: string;
     estado: string;
@@ -27,11 +27,11 @@ export function cadastrarPropriedade(dados: CadastroPropriedade,): Promise<Propr
     });
 }
 
-export function buscarPropriedadePorId(id: number): Promise<Propriedade> {
+export function buscarPropriedadePorId(id: string): Promise<Propriedade> {
     return apiFetch<Propriedade>(`/api/propriedades/${id}`);
 }
 
-export function atualizarPropriedade(id: number, dados: CadastroPropriedade,): Promise<Propriedade> {
+export function atualizarPropriedade(id: string, dados: CadastroPropriedade,): Promise<Propriedade> {
     return apiFetch<Propriedade>(`/api/propriedades/${id}`, {
         method: "PUT",
         body: JSON.stringify(dados)

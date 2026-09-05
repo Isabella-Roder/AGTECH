@@ -199,7 +199,7 @@
 
 .talhao-card-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 9px;
     margin-top: 15px;
     padding-top: 13px;

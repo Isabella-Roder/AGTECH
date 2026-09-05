@@ -34,9 +34,12 @@
 .propriedade-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
 .propriedade-form-field { display: grid; gap: 7px; }
 .propriedade-form-field label { color: var(--ink-700); font-size: .78rem; font-weight: 800; }
-.propriedade-form-field input { width: 100%; min-height: 50px; padding: 12px 15px; border: 1px solid var(--line); border-radius: 13px; color: var(--ink-900); background: #fbfcf8; transition: var(--transition); }
-.propriedade-form-field input:hover { border-color: var(--sage-300); }
-.propriedade-form-field input:focus { border-color: var(--forest-500); outline: none; background: white; box-shadow: 0 0 0 4px rgb(82 148 95 / 13%); }
+.propriedade-form-field input,
+.propriedade-form-field select { width: 100%; min-height: 50px; padding: 12px 15px; border: 1px solid var(--line); border-radius: 13px; color: var(--ink-900); background: #fbfcf8; transition: var(--transition); }
+.propriedade-form-field input:hover,
+.propriedade-form-field select:hover { border-color: var(--sage-300); }
+.propriedade-form-field input:focus,
+.propriedade-form-field select:focus { border-color: var(--forest-500); outline: none; background: white; box-shadow: 0 0 0 4px rgb(82 148 95 / 13%); }
 .propriedade-form-area { position: relative; }
 .propriedade-form-area input { padding-right: 100px; }
 .propriedade-form-area span { position: absolute; top: 50%; right: 15px; color: var(--ink-500); font-size: .78rem; font-weight: 750; transform: translateY(-50%); pointer-events: none; }

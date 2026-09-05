@@ -22,6 +22,7 @@ import { CadastroTalhaoPage } from "./pages/CadastroTalhaoPage";
 import { EditarTalhao } from "./pages/EditarTalhaoPage";
 import { CadastroCultura } from "./pages/CadastroCulturaPage";
 import { CulturasPage } from "./pages/CulturasPage";
+import { CadastroSafra } from "./pages/CadastroSafraPage";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -81,6 +82,13 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                         path="/culturas/nova"
                         element={<CadastroCultura />}
+                    />
+
+                    {/** Safras */}
+
+                    <Route
+                        path="/propriedades/:propriedadeId/talhoes/:talhaoId/safras/nova"
+                        element={<CadastroSafra />}
                     />
                     
                 </Route>

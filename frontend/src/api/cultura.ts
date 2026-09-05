@@ -1,7 +1,7 @@
 import { apiFetch } from "./cliente";
 
 export interface Cultura {
-    id: number;
+    id: string;
     nome: string;
 }
 
