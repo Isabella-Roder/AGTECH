@@ -1,8 +1,8 @@
 # AGTECH — Plataforma de Gestão Rural
 
 Plataforma web para centralizar a gestão de propriedades rurais. O projeto é
-construído de forma incremental, começando pela fundação de usuários,
-autenticação, propriedades, talhões e culturas.
+construído de forma incremental. A V0.1 estabeleceu a fundação com usuários,
+autenticação, propriedades, talhões, culturas, safras e plantios.
 
 > Gigantesco no destino, pequeno em cada entrega.
 
@@ -16,7 +16,11 @@ responsável pela experiência do usuário.
 O projeto começa como um monólito modular. Novos serviços, integrações e
 machine learning serão adicionados somente quando houver requisitos concretos.
 
-## Estado atual — V0.1
+## Estado atual — V0.1 concluída
+
+A primeira versão está funcionalmente concluída. Todas as entidades da
+fundação usam UUID como identificador e as operações vinculadas a propriedades
+validam o acesso ao recurso.
 
 ### Backend
 
@@ -29,6 +33,10 @@ machine learning serão adicionados somente quando houver requisitos concretos.
 - talhões: cadastro, consulta, atualização e controle de status;
 - validação de acesso e pertencimento dos talhões à propriedade;
 - cadastro e listagem de culturas;
+- safras: cadastro, consulta e transições entre planejada, em andamento,
+  finalizada e cancelada;
+- plantios: cadastro, consulta e atualização;
+- autorização em cascata entre propriedade, talhão, safra e plantio;
 - Bean Validation, tratamento global de erros e migrations Flyway.
 
 ### Frontend
@@ -40,15 +48,16 @@ machine learning serão adicionados somente quando houver requisitos concretos.
 - cadastro, listagem e edição de talhões;
 - ativação e desativação de talhões com confirmação;
 - cadastro e listagem de culturas;
+- cadastro e listagem de safras por talhão;
+- início, finalização e cancelamento de safras;
+- cadastro, listagem e edição de plantios por safra;
 - estados de carregamento, erro, sucesso e conteúdo vazio.
 
-### Próximas entregas
+### Próxima versão
 
-- safras e plantios;
-- ampliação dos testes de API, autorização e interface.
-
-Estoque, operações agrícolas, máquinas, pecuária, financeiro, analytics e
-machine learning pertencem a versões futuras.
+A V0.2 será dedicada a insumos e estoque, começando pela modelagem de produtos
+e depósitos. Entradas, saídas e movimentações serão adicionadas de forma
+incremental, sem antecipar módulos futuros.
 
 ## Arquitetura
 
@@ -130,6 +139,11 @@ AGTECH/
   em hectares e status.
 - **Cultura:** cultura agrícola identificada por nome único, disponível na API
   e no catálogo do frontend.
+- **Safra:** ciclo produtivo vinculado a um talhão e uma cultura. O ciclo
+  começa planejado, pode entrar em andamento e termina como finalizado ou
+  cancelado.
+- **Plantio:** registro operacional de uma safra, contendo data, área plantada
+  em hectares e observações opcionais.
 
 Consulte o [ADR de modelagem da V0.1](docs/architecture/0001-modelagem-v0.1-fundacao.md)
 para conhecer as decisões de domínio e autorização.
@@ -205,6 +219,11 @@ aponta atualmente para `http://localhost:8080`.
 | `/propriedades/:propriedadeId/talhoes/:talhaoId/editar` | Autenticado | Edição de talhão |
 | `/culturas` | Autenticado | Catálogo de culturas |
 | `/culturas/nova` | Autenticado | Cadastro de cultura |
+| `/propriedades/:propriedadeId/talhoes/:talhaoId/safras` | Autenticado | Safras do talhão |
+| `/propriedades/:propriedadeId/talhoes/:talhaoId/safras/nova` | Autenticado | Cadastro de safra |
+| `/propriedades/:propriedadeId/talhoes/:talhaoId/safras/:safraId/plantios` | Autenticado | Plantios da safra |
+| `/propriedades/:propriedadeId/talhoes/:talhaoId/safras/:safraId/plantios/novo` | Autenticado | Cadastro de plantio |
+| `/propriedades/:propriedadeId/talhoes/:talhaoId/safras/:safraId/plantios/:plantioId/editar` | Autenticado | Edição de plantio |
 
 Rotas desconhecidas são redirecionadas para o login.
 
@@ -253,6 +272,39 @@ Rotas desconhecidas são redirecionadas para o login.
 | `POST` | `/api/culturas` | Cadastra uma cultura |
 | `GET` | `/api/culturas` | Lista culturas |
 
+### Safras
+
+Base: `/api/propriedades/{propriedadeId}/talhoes/{talhaoId}/safras`
+
+| Método | Endpoint relativo | Descrição |
+| --- | --- | --- |
+| `POST` | `/` | Cadastra uma safra planejada |
+| `GET` | `/` | Lista as safras do talhão |
+| `GET` | `/{safraId}` | Consulta uma safra |
+| `PATCH` | `/{safraId}/iniciar` | Inicia uma safra planejada |
+| `PATCH` | `/{safraId}/finalizar` | Finaliza uma safra em andamento |
+| `PATCH` | `/{safraId}/cancelar` | Cancela uma safra não encerrada |
+
+Transições permitidas:
+
+```text
+PLANEJADA ----> EM_ANDAMENTO ----> FINALIZADA
+    |                |
+    +----------------+-----------> CANCELADA
+```
+
+### Plantios
+
+Base:
+`/api/propriedades/{propriedadeId}/talhoes/{talhaoId}/safras/{safraId}/plantios`
+
+| Método | Endpoint relativo | Descrição |
+| --- | --- | --- |
+| `POST` | `/` | Registra um plantio |
+| `GET` | `/` | Lista os plantios da safra |
+| `GET` | `/{plantioId}` | Consulta um plantio |
+| `PUT` | `/{plantioId}` | Atualiza data, área e observações |
+
 Somente o login e o cadastro de conta são públicos. As outras chamadas devem
 enviar:
 
@@ -286,6 +338,8 @@ local e redireciona para o login.
 | `V3` | Vínculo entre usuários e propriedades |
 | `V4` | Talhões |
 | `V5` | Culturas |
+| `V6` | Safras |
+| `V7` | Plantios |
 
 Toda mudança de schema deve usar uma nova migration. Não altere migrations já
 aplicadas.
@@ -317,10 +371,22 @@ O frontend ainda não possui uma suíte automatizada de testes.
 
 ## Roadmap resumido
 
-1. implementar safras;
-2. implementar plantios;
-3. ampliar testes de integração e segurança;
-4. avançar para módulos futuros apenas conforme requisitos concretos.
+### V0.1 — Fundação ✅
+
+Usuários, autenticação, propriedades, acessos, talhões, culturas, safras e
+plantios.
+
+### V0.2 — Insumos e estoque
+
+1. produtos e categorias necessárias;
+2. depósitos;
+3. entradas e saídas;
+4. movimentações e rastreabilidade;
+5. integração do consumo de insumos com atividades ou safras quando houver um
+   requisito definido.
+
+Máquinas, pecuária, financeiro, analytics e machine learning permanecem em
+versões futuras.
 
 ## Contribuição
 
