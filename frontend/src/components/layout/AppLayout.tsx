@@ -90,6 +90,32 @@ export function AppLayout() {
                         </svg>
                         Culturas
                     </NavLink>
+
+                    <NavLink
+                        className={({ isActive }) =>
+                            isActive
+                                ? "app-navigation-link app-navigation-link--active"
+                                : "app-navigation-link"
+                        }
+                        to="/produtos"
+                        onClick={fecharMenu}
+                    >
+                        <svg
+                            aria-hidden="true"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                        >
+                            <path
+                                d="M4 7.5 12 3l8 4.5-8 4.5-8-4.5ZM4 7.5V16l8 5 8-5V7.5M12 12v9"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+
+                        Produtos
+                    </NavLink>
                 </nav>
 
                 <footer className="app-sidebar-footer">
