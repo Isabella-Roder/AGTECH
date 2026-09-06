@@ -1,0 +1,9 @@
+CREATE TABLE produtos(
+    id UUID DEFAULT RANDOM_UUID() PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE,
+    unidade_medida VARCHAR(20) NOT NULL,
+    categoria VARCHAR(20) NOT NULL,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    criado_em TIMESTAMP NOT NULL,
+    atualizado_em TIMESTAMP NOT NULL
+);
