@@ -32,6 +32,8 @@ import { CadastroProdutoPage } from "./pages/CadastroProdutoPage";
 import { DepositosPage } from "./pages/DepositoPage";
 import { CadastroDepositoPage } from "./pages/CadastroDepositoPage";
 import { EditarDepositoPage } from "./pages/EditarDepositoPage";
+import { MovimentacoesPage } from "./pages/MovimentacoesPage";
+import { CadastroMovimentacaoPage } from "./pages/CadastroMovimentacao";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -150,7 +152,19 @@ createRoot(document.getElementById("root")!).render(
                         path="/propriedades/:propriedadeId/depositos/:depositoId/editar"
                         element={<EditarDepositoPage />}
                     />
+
+                    {/** Movimentações */}
                     
+                    <Route
+                        path="/propriedades/:propriedadeId/depositos/:depositoId/movimentacoes"
+                        element={<MovimentacoesPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/depositos/:depositoId/movimentacoes/nova"
+                        element={<CadastroMovimentacaoPage />}
+                    />
+
                 </Route>
 
                 {/* Rota desconhecida */}
