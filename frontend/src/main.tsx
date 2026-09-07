@@ -29,6 +29,9 @@ import { PlantiosPage } from "./pages/PlantiosPage";
 import { EditarPlantioPage } from "./pages/EditarPlantioPage";
 import { ProdutosPage } from "./pages/ProdutosPage";
 import { CadastroProdutoPage } from "./pages/CadastroProdutoPage";
+import { DepositosPage } from "./pages/DepositoPage";
+import { CadastroDepositoPage } from "./pages/CadastroDepositoPage";
+import { EditarDepositoPage } from "./pages/EditarDepositoPage";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -69,7 +72,7 @@ createRoot(document.getElementById("root")!).render(
                         element={<EditarPropriedadePage />}
                     />
 
-                    <Route 
+                    <Route
                         path="/propriedades/:propriedadeId/talhoes/novo"
                         element={<CadastroTalhaoPage />}
                     />
@@ -129,6 +132,23 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                         path="/produtos/novo"
                         element={<CadastroProdutoPage />}
+                    />
+
+                    {/** Depositos */}
+
+                    <Route
+                        path="/propriedades/:propriedadeId/depositos"
+                        element={<DepositosPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/depositos/novo"
+                        element={<CadastroDepositoPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/depositos/:depositoId/editar"
+                        element={<EditarDepositoPage />}
                     />
                     
                 </Route>
