@@ -366,20 +366,37 @@ da autorização por recurso — ver ADR em
 
 ## V0.2 --- Insumos e estoque
 
--   produtos;
--   depósitos;
--   entradas;
--   saídas;
--   movimentações;
--   insumos utilizados por atividade/safra.
+-   produtos; ✅ concluído (catálogo simples, entidade, migration,
+    repository, service, DTOs, controller, testes)
+-   depósitos; ✅ concluído (entidade, migration, repository, service,
+    DTOs, controller, autorização por recurso via propriedade, testes)
+-   entradas; ✅ concluído (via `MovimentacaoEstoque` com `tipo` =
+    `ENTRADA`)
+-   saídas; ✅ concluído (via `MovimentacaoEstoque` com `tipo` = `SAIDA`)
+-   movimentações; ✅ concluído (entidade, migration, repository, service,
+    DTOs, controller, testes)
+-   insumos utilizados por atividade/safra. ✅ concluído (vínculo opcional
+    `MovimentacaoEstoque.safra`)
+
+V0.2 completa: `Produto`, `Deposito` e `MovimentacaoEstoque` implementados
+com autorização por recurso e testes unitários cobrindo os services.
 
 ## V0.3 --- Operações agrícolas
 
--   atividades de campo;
--   aplicação de insumos;
--   plantio;
--   colheita;
--   custos associados.
+-   atividades de campo; ✅ concluído (entidade `AtividadeDeCampo` com
+    enum `TipoAtividade`, migration, repository, service, DTOs,
+    controller, autorização em cascata via safra → talhão →
+    propriedade, testes)
+-   aplicação de insumos; ✅ concluído (coberto pelo vínculo opcional
+    `MovimentacaoEstoque.safra`, sem entidade própria por ora)
+-   plantio; ✅ concluído (ver V0.1)
+-   colheita; ✅ concluído (entidade `Colheita`, migration, repository,
+    service, DTOs, controller, mesma autorização em cascata, testes)
+-   custos associados. pendente — adiado para o módulo financeiro (V0.6)
+
+V0.3 praticamente completa: os módulos de atividade de campo e colheita
+estão implementados e testados; custos associados ficam para quando o
+módulo financeiro entrar em escopo.
 
 ## V0.4 --- Máquinas
 
