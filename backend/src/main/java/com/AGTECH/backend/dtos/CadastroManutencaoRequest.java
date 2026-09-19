@@ -6,12 +6,8 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public record CadastroManutencaoRequest(
-        @NotNull(message = "Maquina é obrigatória")
-        UUID maquidaId,
-
         @NotNull(message = "Tipo é obrigatório")
         TipoManutencao tipo,
 

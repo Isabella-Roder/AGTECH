@@ -1,16 +1,12 @@
 package com.AGTECH.backend.dtos;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 public record CadastroAbastecimentoRequest(
-    @NotNull(message = "Maquina é obrigatória")
-    UUID maquinaId,
-
     @NotNull(message = "Data é obrigatória")
     LocalDateTime data,
 

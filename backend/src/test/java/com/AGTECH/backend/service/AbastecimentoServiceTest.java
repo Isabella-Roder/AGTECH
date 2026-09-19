@@ -42,8 +42,8 @@ class AbastecimentoServiceTest {
         return maquina;
     }
 
-    private CadastroAbastecimentoRequest criarRequest(UUID maquinaId) {
-        return new CadastroAbastecimentoRequest(maquinaId, LocalDateTime.now(), 50.5, 120.0, "obs");
+    private CadastroAbastecimentoRequest criarRequest() {
+        return new CadastroAbastecimentoRequest(LocalDateTime.now(), 50.5, 120.0, "obs");
     }
 
     @Test
@@ -56,7 +56,7 @@ class AbastecimentoServiceTest {
         when(abastecimentoRepository.save(any(Abastecimento.class))).thenAnswer(i -> i.getArgument(0));
 
         AbastecimentoResponse response = abastecimentoService.cadastrar(
-                propriedadeId, maquinaId, criarRequest(maquinaId), UUID.randomUUID());
+                propriedadeId, maquinaId, criarRequest(), UUID.randomUUID());
 
         assertEquals(50.5, response.litros());
         assertEquals(maquinaId, response.maquinaId());
@@ -70,7 +70,7 @@ class AbastecimentoServiceTest {
                 .thenReturn(Optional.of(maquina));
 
         assertThrows(RegraDeNegocioException.class, () -> abastecimentoService.cadastrar(
-                UUID.randomUUID(), maquinaId, criarRequest(maquinaId), UUID.randomUUID()));
+                UUID.randomUUID(), maquinaId, criarRequest(), UUID.randomUUID()));
         verify(abastecimentoRepository, never()).save(any());
     }
 
@@ -85,7 +85,7 @@ class AbastecimentoServiceTest {
         when(abastecimentoRepository.save(any(Abastecimento.class))).thenAnswer(i -> i.getArgument(0));
 
         AbastecimentoResponse response = abastecimentoService.atualizar(
-                propriedadeId, maquinaId, id, criarRequest(maquinaId), UUID.randomUUID());
+                propriedadeId, maquinaId, id, criarRequest(), UUID.randomUUID());
 
         assertEquals(50.5, response.litros());
         assertEquals(120.0, response.horimetroNoMomento());
@@ -100,7 +100,7 @@ class AbastecimentoServiceTest {
         when(abastecimentoRepository.findById(id)).thenReturn(Optional.of(existente));
 
         assertThrows(RegraDeNegocioException.class, () -> abastecimentoService.atualizar(
-                UUID.randomUUID(), UUID.randomUUID(), id, criarRequest(UUID.randomUUID()), UUID.randomUUID()));
+                UUID.randomUUID(), UUID.randomUUID(), id, criarRequest(), UUID.randomUUID()));
     }
 
     @Test

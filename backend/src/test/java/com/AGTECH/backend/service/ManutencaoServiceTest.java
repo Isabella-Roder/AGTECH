@@ -54,8 +54,8 @@ class ManutencaoServiceTest {
         return maquina;
     }
 
-    private CadastroManutencaoRequest criarRequest(UUID maquinaId) {
-        return new CadastroManutencaoRequest(maquinaId, TipoManutencao.CORRETIVA, LocalDate.now(), 120.0, "nova desc");
+    private CadastroManutencaoRequest criarRequest() {
+        return new CadastroManutencaoRequest(TipoManutencao.CORRETIVA, LocalDate.now(), 120.0, "nova desc");
     }
 
     @Test
@@ -67,7 +67,7 @@ class ManutencaoServiceTest {
         when(manutencaoRepository.save(any(Manutencao.class))).thenAnswer(i -> i.getArgument(0));
 
         ManutencaoResponse response = manutencaoService.cadastrar(
-                propriedadeId, maquinaId, criarRequest(maquinaId), UUID.randomUUID());
+                propriedadeId, maquinaId, criarRequest(), UUID.randomUUID());
 
         assertEquals(TipoManutencao.CORRETIVA, response.tipo());
         assertEquals("nova desc", response.descricao());
@@ -81,7 +81,7 @@ class ManutencaoServiceTest {
         when(maquinaRepository.findById(maquinaId)).thenReturn(Optional.of(maquina));
 
         assertThrows(RegraDeNegocioException.class, () -> manutencaoService.cadastrar(
-                UUID.randomUUID(), maquinaId, criarRequest(maquinaId), UUID.randomUUID()));
+                UUID.randomUUID(), maquinaId, criarRequest(), UUID.randomUUID()));
         verify(manutencaoRepository, never()).save(any());
     }
 
@@ -96,7 +96,7 @@ class ManutencaoServiceTest {
         when(manutencaoRepository.save(any(Manutencao.class))).thenAnswer(i -> i.getArgument(0));
 
         ManutencaoResponse response = manutencaoService.atualizar(
-                propriedadeId, maquinaId, id, criarRequest(maquinaId), UUID.randomUUID());
+                propriedadeId, maquinaId, id, criarRequest(), UUID.randomUUID());
 
         assertEquals(TipoManutencao.CORRETIVA, response.tipo());
         assertEquals(120.0, response.horimetroNoMomento());
@@ -112,7 +112,7 @@ class ManutencaoServiceTest {
         when(manutencaoRepository.findById(id)).thenReturn(Optional.of(existente));
 
         assertThrows(RegraDeNegocioException.class, () -> manutencaoService.atualizar(
-                UUID.randomUUID(), UUID.randomUUID(), id, criarRequest(UUID.randomUUID()), UUID.randomUUID()));
+                UUID.randomUUID(), UUID.randomUUID(), id, criarRequest(), UUID.randomUUID()));
         verify(manutencaoRepository, never()).save(any());
     }
 
