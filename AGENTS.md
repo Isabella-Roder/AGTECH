@@ -400,12 +400,17 @@ módulo financeiro entrar em escopo.
 
 ## V0.4 --- Máquinas
 
--   máquinas;
--   implementos;
--   horímetro;
--   abastecimentos;
--   manutenção;
--   custos.
+-   máquinas; ✅ concluído (entidade `Maquina` com tipo, ativar/desativar,
+    migration V13, repository, service, controller, DTOs)
+-   implementos; pendente (não modelado; hoje `TipoMaquina` cobre só
+    máquinas)
+-   horímetro; ✅ concluído (`horimetroAtual` na máquina e
+    `horimetroNoMomento` registrado em manutenções e abastecimentos)
+-   abastecimentos; ✅ concluído (entidade, migration V15, repository,
+    service, controller, DTOs)
+-   manutenção; ✅ concluído (entidade com `TipoManutencao`, migration
+    V14, repository, service, controller, DTOs)
+-   custos. pendente (adiado para o módulo financeiro, V0.6)
 
 ## V0.5 --- Pecuária
 
