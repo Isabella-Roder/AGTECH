@@ -1,0 +1,917 @@
+.maquinas-page {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 32px;
+    color: #17261c;
+}
+
+.maquinas-hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    overflow: hidden;
+    padding: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    background: radial-gradient(
+        circle at 85% 20%,
+        rgba(162, 210, 73, 0.24),
+        transparent 30%
+    ), linear-gradient(135deg, #132d1d 0%, #205333 58%, #317146 100%);
+    box-shadow: 0 24px 60px rgba(20, 61, 34, 0.18);
+    color: #fff;
+}
+
+.maquinas-hero::before {
+    position: absolute;
+    right: -70px;
+    bottom: -110px;
+    width: 290px;
+    height: 290px;
+    border: 46px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    content: "";
+}
+
+.maquinas-hero > * {
+    position: relative;
+    z-index: 1;
+}
+
+.maquinas-eyebrow {
+    display: inline-flex;
+    margin-bottom: 12px;
+    color: #c5ec82;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.maquinas-hero h1 {
+    margin: 0 0 10px;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
+}
+
+.maquinas-hero p {
+    max-width: 650px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.maquinas-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 11px 18px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        border-color 160ms ease,
+        background-color 160ms ease;
+}
+
+.maquinas-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.maquinas-button:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.maquinas-button--primary {
+    flex-shrink: 0;
+    background: #c4e968;
+    box-shadow: 0 12px 30px rgba(139, 188, 60, 0.25);
+    color: #16361f;
+}
+
+.maquinas-button--primary:hover {
+    background: #d2f37f;
+    box-shadow: 0 16px 34px rgba(139, 188, 60, 0.34);
+}
+
+.maquinas-button--secondary {
+    border-color: #d6e1d8;
+    background: #fff;
+    color: #255d38;
+}
+
+.maquinas-button--secondary:hover {
+    border-color: #90b89b;
+    background: #f6faf7;
+}
+
+.maquinas-button--danger {
+    border-color: #f1c9c6;
+    background: #fff5f4;
+    color: #ad3932;
+}
+
+.maquinas-button--danger:hover {
+    border-color: #df9b96;
+    background: #ffebe9;
+}
+
+.maquinas-button--success {
+    border-color: #b9dcc2;
+    background: #eef9f1;
+    color: #237140;
+}
+
+.maquinas-button--success:hover {
+    border-color: #83be92;
+    background: #e3f5e8;
+}
+
+.maquinas-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 22px;
+}
+
+.maquinas-summary-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 150px;
+    padding: 24px;
+    border: 1px solid #e2eae4;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 12px 36px rgba(30, 64, 40, 0.07);
+}
+
+.maquinas-summary-card::after {
+    position: absolute;
+    top: -22px;
+    right: -22px;
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: #eef5ef;
+    content: "";
+}
+
+.maquinas-summary-card--success::after {
+    background: #dff1df;
+}
+
+.maquinas-summary-card--muted::after {
+    background: #f0eeee;
+}
+
+.maquinas-summary-card span, .maquinas-summary-card small {
+    display: block;
+    color: #718077;
+}
+
+.maquinas-summary-card span {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.maquinas-summary-card strong {
+    display: block;
+    margin: 13px 0 6px;
+    color: #193f27;
+    font-size: 2.2rem;
+    letter-spacing: -0.04em;
+}
+
+.maquinas-summary-card small {
+    font-size: 0.82rem;
+}
+
+.maquinas-content {
+    margin-top: 22px;
+    padding: 24px;
+    border: 1px solid #e0e9e2;
+    border-radius: 24px;
+    background: #f9fbf9;
+}
+
+.maquinas-toolbar {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) minmax(190px, 280px);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.maquinas-search, .maquinas-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.maquinas-search span, .maquinas-filter span {
+    color: #506258;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.maquinas-search input, .maquinas-filter select {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 15px;
+    border: 1px solid #d8e2da;
+    border-radius: 12px;
+    outline: none;
+    background: #fff;
+    color: #203326;
+    font: inherit;
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.maquinas-search input:focus, .maquinas-filter select:focus {
+    border-color: #57946a;
+    box-shadow: 0 0 0 4px rgba(67, 133, 87, 0.12);
+}
+
+.maquinas-alert {
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.maquinas-alert--erro {
+    border: 1px solid #efc2bd;
+    background: #fff1ef;
+    color: #a43932;
+}
+
+.maquinas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.maquina-card {
+    overflow: hidden;
+    border: 1px solid #dce7de;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(32, 74, 45, 0.06);
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        border-color 180ms ease;
+}
+
+.maquina-card:hover {
+    transform: translateY(-3px);
+    border-color: #b9cdbd;
+    box-shadow: 0 18px 38px rgba(32, 74, 45, 0.11);
+}
+
+.maquina-card--inativa {
+    background: #fbfbfb;
+    filter: saturate(0.65);
+}
+
+.maquina-card__header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 20px 17px;
+    border-bottom: 1px solid #edf1ee;
+}
+
+.maquina-card__icon {
+    display: grid;
+    width: 48px;
+    height: 40px;
+    place-items: center;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #255f39, #3d8352);
+    box-shadow: 0 8px 18px rgba(41, 105, 61, 0.2);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.maquina-card__title {
+    min-width: 0;
+}
+
+.maquina-card__title span {
+    display: block;
+    margin-bottom: 3px;
+    color: #758179;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.maquina-card__title h2 {
+    overflow: hidden;
+    margin: 0;
+    color: #193d26;
+    font-size: 1.12rem;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.maquina-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 850;
+}
+
+.maquina-status::before {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    content: "";
+}
+
+.maquina-status--ativo {
+    background: #e9f7ed;
+    color: #267240;
+}
+
+.maquina-status--ativo::before {
+    background: #37a659;
+    box-shadow: 0 0 0 3px rgba(55, 166, 89, 0.14);
+}
+
+.maquina-status--inativo {
+    background: #f2eeee;
+    color: #776968;
+}
+
+.maquina-status--inativo::before {
+    background: #9a8987;
+}
+
+.maquina-card__metric {
+    padding: 24px 20px;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(238, 247, 240, 0.7),
+            rgba(255, 255, 255, 0)
+        );
+}
+
+.maquina-card__metric span, .maquina-card__metric small {
+    display: block;
+    color: #77827a;
+}
+
+.maquina-card__metric span {
+    margin-bottom: 5px;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.maquina-card__metric strong {
+    display: block;
+    color: #205232;
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: -0.045em;
+}
+
+.maquina-card__metric small {
+    margin-top: 7px;
+    font-size: 0.8rem;
+}
+
+.maquina-card__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 16px 20px 20px;
+}
+
+.maquinas-state {
+    display: grid;
+    min-height: 290px;
+    place-items: center;
+    align-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.maquinas-state h2 {
+    margin: 16px 0 6px;
+    color: #1d482c;
+    font-size: 1.25rem;
+}
+
+.maquinas-state p {
+    max-width: 430px;
+    margin: 0;
+    color: #708077;
+    line-height: 1.6;
+}
+
+.maquinas-empty-icon {
+    display: grid;
+    width: 64px;
+    height: 64px;
+    place-items: center;
+    border-radius: 20px;
+    background: #e9f3eb;
+    color: #2e7244;
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.maquinas-spinner {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 15px;
+    border: 4px solid #dfe9e1;
+    border-top-color: #34764a;
+    border-radius: 50%;
+    animation: maquinas-girar 700ms linear infinite;
+}
+
+.maquinas-hero--form {
+    align-items: center;
+}
+
+.maquinas-button--hero-secondary {
+    flex-shrink: 0;
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    backdrop-filter: blur(10px);
+}
+
+.maquinas-button--hero-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.maquina-form-container {
+    max-width: 900px;
+    margin: 22px auto 0;
+    padding: 30px;
+    border: 1px solid #e0e9e2;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 18px 48px rgba(30, 64, 40, 0.08);
+}
+
+.maquina-form-heading {
+    margin-bottom: 26px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #e7eee8;
+}
+
+.maquina-form-heading > span {
+    color: #438158;
+    font-size: 0.74rem;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.maquina-form-heading h2 {
+    margin: 7px 0;
+    color: #193f27;
+    font-size: 1.7rem;
+    letter-spacing: -0.03em;
+}
+
+.maquina-form-heading p {
+    margin: 0;
+    color: #718077;
+    line-height: 1.6;
+}
+
+.maquina-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.maquina-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.maquina-field--full, .maquina-form-actions {
+    grid-column: 1 / -1;
+}
+
+.maquina-field > span {
+    color: #32433b;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.maquina-field input, .maquina-field select {
+    width: 100%;
+    min-height: 50px;
+    padding: 0 15px;
+    border: 1px solid #d6e1d8;
+    border-radius: 12px;
+    outline: none;
+    background: #fbfdfb;
+    color: #203326;
+    font: inherit;
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        background-color 160ms ease;
+}
+
+.maquina-field input:focus, .maquina-field select:focus {
+    border-color: #57946a;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(67, 133, 87, 0.12);
+}
+
+.maquina-field input:disabled, .maquina-field select:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.maquina-field small {
+    color: #7b8880;
+    font-size: 0.76rem;
+    line-height: 1.45;
+}
+
+.maquina-input-suffix {
+    position: relative;
+}
+
+.maquina-input-suffix input {
+    padding-right: 48px;
+}
+
+.maquina-input-suffix > span {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    color: #62806b;
+    font-size: 0.88rem;
+    font-weight: 850;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.maquina-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 22px;
+    border-top: 1px solid #e7eee8;
+}
+
+.maquina-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 22px;
+}
+
+.maquina-details-card {
+    position: relative;
+    display: flex;
+    min-height: 180px;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    padding: 26px;
+    border: 1px solid #dfe8e1;
+    border-radius: 22px;
+    background:
+        radial-gradient(
+            circle at 100% 0,
+            rgba(89, 145, 105, 0.12),
+            transparent 38%
+        ), #fff;
+    box-shadow: 0 14px 38px rgba(30, 64, 40, 0.07);
+}
+
+.maquina-details-card::after {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #9dca6a;
+    box-shadow: 0 0 0 6px rgba(157, 202, 106, 0.14);
+    content: "";
+}
+
+.maquina-details-card__label {
+    margin-bottom: 14px;
+    color: #728078;
+    font-size: 0.74rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.maquina-details-card > strong {
+    color: #1d5030;
+    font-size: 2.25rem;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+.maquina-details-card > .maquina-details-card__text {
+    font-size: 1.35rem;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+}
+
+.maquina-details-card > small {
+    display: block;
+    margin-top: 9px;
+    color: #7a877f;
+    font-size: 0.8rem;
+}
+
+.maquina-details-card > .maquina-status {
+    width: fit-content;
+    margin-top: 16px;
+}
+
+.maquina-modules {
+    margin-top: 22px;
+    padding: 30px;
+    border: 1px solid #dfe8e1;
+    border-radius: 24px;
+    background: #f8fbf8;
+}
+
+.maquina-modules__heading {
+    margin-bottom: 24px;
+}
+
+.maquina-modules__heading > span {
+    color: #458259;
+    font-size: 0.73rem;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.maquina-modules__heading h2 {
+    margin: 7px 0;
+    color: #193f27;
+    font-size: 1.65rem;
+    letter-spacing: -0.035em;
+}
+
+.maquina-modules__heading p {
+    margin: 0;
+    color: #738078;
+    line-height: 1.6;
+}
+
+.maquina-modules__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.maquina-module-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 18px;
+    overflow: hidden;
+    min-height: 150px;
+    padding: 24px;
+    border: 1px solid #d8e4da;
+    border-radius: 19px;
+    background: #fff;
+    box-shadow: 0 10px 28px rgba(32, 74, 45, 0.05);
+    color: inherit;
+    text-decoration: none;
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.maquina-module-card::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 4px;
+    background: linear-gradient(#8fc057, #367b4c);
+    content: "";
+    opacity: 0;
+    transition: opacity 180ms ease;
+}
+
+.maquina-module-card:hover {
+    transform: translateY(-3px);
+    border-color: #abc5b1;
+    box-shadow: 0 18px 38px rgba(32, 74, 45, 0.11);
+}
+
+.maquina-module-card:hover::before {
+    opacity: 1;
+}
+
+.maquina-module-card__icon {
+    display: grid;
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 17px;
+    background: linear-gradient(145deg, #1f5631, #43855a);
+    box-shadow: 0 10px 22px rgba(38, 105, 59, 0.2);
+    color: #fff;
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+.maquina-module-card h3 {
+    margin: 0 0 7px;
+    color: #748078;
+    font-size: 1.05rem;
+}
+
+.maquina-module-card p {
+    margin: 0;
+    color: #748078;
+    font-size: 0.85rem;
+    line-height: 1.55;
+}
+
+.maquina-module-card__arrow {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 50%;
+    background: #edf5ef;
+    color: #327449;
+    font-size: 1.15rem;
+    font-weight: 900;
+    transition:
+        transform 180ms ease,
+        background-color 180ms ease;
+}
+
+.maquina-module-card:hover .maquina-module-card__arrow {
+    transform: translateX(4px);
+    background: #dfeee3;
+}
+
+@keyframes maquinas-girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 900px) {
+    .maquinas-page {
+        padding: 22px;
+    }
+
+    .maquinas-hero {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .maquinas-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .maquinas-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .maquinas-page{
+        padding: 14px;
+    }
+
+    .maquinas-hero, .maquinas-content {
+        border-radius: 19px;
+    }
+
+    .maquinas-hero {
+        padding: 24px 20px;
+    }
+
+    .maquinas-button--primary {
+        width: 100%;
+    }
+
+    .maquinas-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .maquina-card__header {
+        grid-template-columns: auto 1fr;
+    }
+
+    .maquina-status {
+        grid-column: 1 / -1;
+        width: fit-content;
+    }
+
+    .maquina-card__actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .maquina-form-container {
+        padding: 22px 18px;
+        border-radius: 19px;
+    }
+
+    .maquina-form {
+        grid-template-columns: 1fr;
+    }
+
+    .maquina-field,
+    .maquina-field--full,
+    .maquina-form-actions {
+        grid-column: auto;
+    }
+
+    .maquina-form-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .maquina-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .maquina-modules__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .maquina-details-card {
+        min-height: 155px;
+        padding: 22px;
+        border-radius: 18px;
+    }
+
+    .maquina-modules {
+        padding: 22px 18px;
+        border-radius: 19px;
+    }
+
+    .maquina-module-card {
+        grid-template-columns: auto 1fr;
+        padding: 20px;
+    }
+
+    .maquina-module-card__arrow {
+        display: none;
+    }
+}

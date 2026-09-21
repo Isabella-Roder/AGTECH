@@ -234,6 +234,16 @@ export function DetalhesPropriedadePage() {
                     </span>
 
                     <button
+                        className="property-details-machines"
+                        type="button"
+                        onClick={() =>
+                            navigate(`/propriedades/${propriedade.id}/maquinas`)
+                        }
+                    >
+                        Ver máquinas
+                    </button>
+
+                    <button
                         className="property-details-edit"
                         type="button"
                         onClick={() =>

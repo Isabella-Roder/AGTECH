@@ -34,6 +34,13 @@ import { CadastroDepositoPage } from "./pages/CadastroDepositoPage";
 import { EditarDepositoPage } from "./pages/EditarDepositoPage";
 import { MovimentacoesPage } from "./pages/MovimentacoesPage";
 import { CadastroMovimentacaoPage } from "./pages/CadastroMovimentacao";
+import { MaquinaPage } from "./pages/MaquinaPage";
+import { CadastroMaquinaPage } from "./pages/CadastroMaquinaPage";
+import { DetalhesMaquinaPage } from "./pages/DetalhesMaquinaPage";
+import { ManutencoesPage } from "./pages/ManutencoesPage";
+import { FormularioManutencaoPage } from "./pages/FormularioManutencaoPage";
+import { AbastecimentosPage } from "./pages/AbastecimentosPage";
+import { FormularioAbastecimentoPage } from "./pages/FormularioAbastecimentoPage";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -163,6 +170,51 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                         path="/propriedades/:propriedadeId/depositos/:depositoId/movimentacoes/nova"
                         element={<CadastroMovimentacaoPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/maquinas"
+                        element={<MaquinaPage/>}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/maquinas/nova"
+                        element={<CadastroMaquinaPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/maquinas/:maquinaId"
+                        element={<DetalhesMaquinaPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/maquinas/:maquinaId/manutencoes"
+                        element={<ManutencoesPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/maquinas/:maquinaId/manutencoes/nova"
+                        element={<FormularioManutencaoPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/maquinas/:maquinaId/manutencoes/:manutencaoId/editar"
+                        element={<FormularioManutencaoPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/maquinas/:maquinaId/abastecimentos"
+                        element={<AbastecimentosPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/maquinas/:maquinaId/abastecimentos/novo"
+                        element={<FormularioAbastecimentoPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/maquinas/:maquinaId/abastecimentos/:abastecimentoId/editar"
+                        element={<FormularioAbastecimentoPage />}
                     />
 
                 </Route>
