@@ -41,6 +41,8 @@ import { ManutencoesPage } from "./pages/ManutencoesPage";
 import { FormularioManutencaoPage } from "./pages/FormularioManutencaoPage";
 import { AbastecimentosPage } from "./pages/AbastecimentosPage";
 import { FormularioAbastecimentoPage } from "./pages/FormularioAbastecimentoPage";
+import { RebanhoPage } from "./pages/RebanhoPage";
+import { FormularioRebanhoPage } from "./pages/FormularioRebanhoPage";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -215,6 +217,21 @@ createRoot(document.getElementById("root")!).render(
                     <Route
                         path="/propriedades/:propriedadeId/maquinas/:maquinaId/abastecimentos/:abastecimentoId/editar"
                         element={<FormularioAbastecimentoPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/rebanhos"
+                        element={<RebanhoPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/rebanhos/novo"
+                        element={<FormularioRebanhoPage />}
+                    />
+
+                    <Route
+                        path="/propriedades/:propriedadeId/rebanhos/:rebanhoId/editar"
+                        element={<FormularioRebanhoPage />}
                     />
 
                 </Route>

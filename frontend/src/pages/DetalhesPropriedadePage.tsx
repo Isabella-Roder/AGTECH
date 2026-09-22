@@ -244,6 +244,16 @@ export function DetalhesPropriedadePage() {
                     </button>
 
                     <button
+                        className="property-details-herds"
+                        type="button"
+                        onClick={() =>
+                            navigate(`/propriedades/${propriedade.id}/rebanhos`)
+                        }
+                    >
+                        Ver rebanhos
+                    </button>
+
+                    <button
                         className="property-details-edit"
                         type="button"
                         onClick={() =>

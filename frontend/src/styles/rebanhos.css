@@ -1,0 +1,439 @@
+.rebanhos-page {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 32px;
+    color: #1c3023;
+}
+
+.rebanhos-hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 38px;
+    border-radius: 26px;
+    background:
+        radial-gradient(circle at 85% 15%, #89be6b55, transparent 34%),
+        linear-gradient(135deg, #193b29, #31734a);
+    box-shadow: 0 22px 50px #193b2929;
+    color: #fff;
+}
+
+.rebanhos-eyebrow {
+    color: #c9ee9a;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.rebanhos-hero h1 {
+    margin: 10px 0;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    letter-spacing: -0.04em;
+}
+
+.rebanhos-hero p {
+    max-width: 600px;
+    margin: 0;
+    color: #ffffffc4;
+    line-height: 1.6;
+}
+
+.rebanhos-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 11px 18px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color 160ms ease,
+        border-color 160ms ease,
+        transform 160ms ease;
+}
+
+.rebanhos-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.rebanhos-button:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.rebanhos-button--primary {
+    flex-shrink: 0;
+    background: #c9eb84;
+    color: #183c25;
+}
+
+.rebanhos-button--primary:hover {
+    background: #daf3a5;
+}
+
+.rebanhos-button--secondary {
+    border-color: #cdded1;
+    background: #f3faf4;
+    color: #28643c;
+}
+
+.rebanhos-button--secondary:hover {
+    background: #e7f4e9;
+}
+
+.rebanhos-button--outline {
+    border-color: #d7e1d9;
+    background: #fff;
+    color: #405b48;
+}
+
+.rebanhos-button--outline:hover {
+    border-color: #9fbea6;
+    background: #f8fbf8;
+}
+
+.rebanhos-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin: 22px 0;
+}
+
+.rebanhos-summary article {
+    min-height: 130px;
+    padding: 23px;
+    border: 1px solid #dfe9e1;
+    border-radius: 19px;
+    background: #fff;
+    box-shadow: 0 10px 30px #1f4d2b0d;
+}
+
+.rebanhos-summary span {
+    display: block;
+    color: #6e7e72;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.rebanhos-summary strong {
+    display: block;
+    margin-top: 12px;
+    color: #205233;
+    font-size: 2.2rem;
+    line-height: 1;
+}
+
+.rebanhos-content {
+    padding: 25px;
+    border: 1px solid #dfe9e1;
+    border-radius: 22px;
+    background: #f9fbf9;
+}
+
+.rebanhos-toolbar {
+    display: grid;
+    grid-template-columns: minmax(140px, 1fr) minmax(190px, 270px);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.rebanhos-toolbar label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rebanhos-toolbar label > span {
+    color: #526558;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.rebanhos-toolbar input, .rebanhos-toolbar select {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid #d5e1d8;
+    border-radius: 11px;
+    outline: none;
+    background: #fff;
+    color: #203326;
+    font: inherit;
+}
+
+.rebanhos-toolbar input:focus, .rebanhos-toolbar select:focus {
+    border-color: #57946a;
+    box-shadow: 0 0 0 4px #4385571f;
+}
+
+.rebanhos-alert {
+    padding: 14px 16px;
+    border: 1px solid #edc3bf;
+    border-radius: 11px;
+    background: #fff1ef;
+    color: #a23d36;
+    font-weight: 700;
+}
+
+.rebanhos-state {
+    display: grid;
+    min-height: 230px;
+    place-items: center;
+    padding: 30px;
+    color: #718078;
+    text-align: center;
+}
+
+.rebanhos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.rebanho-card {
+    padding: 22px;
+    border: 1px solid #dce7df;
+    border-radius: 19px;
+    background: #fff;
+    box-shadow: 0 9px 26px #204a2d0d;
+    transition:
+        transform 170ms ease,
+        box-shadow 170ms ease;
+}
+
+.rebanho-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 35px #204a2d1c;
+}
+
+.rebanho-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 23px;
+}
+
+.rebanho-card__icon {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(145deg, #185e3c, #4a9561);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.rebanho-status {
+    padding: 7px 11px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+.rebanho-status--ativo {
+    background: #e5f5e9;
+    color: #287443;
+}
+
+.rebanho-status--inativo {
+    background: #f0eeee;
+    color: #766f6d;
+}
+
+.rebanho-card__species {
+    color: #699073;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.rebanho-card h2 {
+    margin: 5px 0 22px;
+    color: #1b4129;
+    font-size: 1.25rem;
+    overflow-wrap: anywhere;
+}
+
+.rebanho-card__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding-top: 17px;
+    border-top: 1px solid #edf1ee;
+}
+
+.rebanhos-button--hero {
+    flex-shrink: 0;
+    border-color: #ffffff59;
+    background: #ffffff1a;
+    color: #fff;
+}
+
+.rebanhos-button--hero:hover {
+    background: #ffffff30;
+}
+
+.rebanho-form-container {
+    max-width: 880px;
+    margin: 22px auto 0;
+    padding: 30px;
+    border: 1px solid #dfe9e1;
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 18px 45px #1f4d2b14;
+}
+
+.rebanho-form-heading {
+    margin-bottom: 26px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #e7eee8;
+}
+
+.rebanho-form-heading > span {
+    color: #438158;
+    font-size: 0.74rem;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.rebanho-form-heading h2 {
+    margin: 7px 0;
+    color: #193f27;
+    font-size: 1.7rem;
+    letter-spacing: -0.03em;
+}
+
+.rebanho-form-heading p {
+    margin: 0;
+    color: #718077;
+    line-height: 1.6;
+}
+
+.rebanho-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.rebanho-field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rebanho-field > span {
+    color: #324e3b;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.rebanho-field input, .rebanho-field select {
+    width: 100%;
+    min-height: 50px;
+    padding: 0 15px;
+    border: 1px solid #d6e1d8;
+    outline: none;
+    background: #fbfdfb;
+    color: #103326;
+    font: inherit;
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        background-color 160ms ease;
+}
+
+.rebanho-field input:focus, .rebanho-field select:focus {
+    border-color: #57946a;
+    background: #fff;
+    box-shadow: 0 0 0 4px #4385571f;
+}
+
+.rebanho-field input:disabled, .rebanho-field select:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.rebanho-form-actions {
+    display: flex;
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 22px;
+    border-top: 1px solid #e7eee8;
+}
+
+.rebanho-form-actions .rebanhos-button {
+    min-width: 150px;
+}
+
+@media (max-width: 850px) {
+    .rebanhos-summary,
+    .rebanhos-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 620px) {
+    .rebanhos-page {
+        padding: 14px;
+    }
+
+    .rebanhos-hero {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 25px 20px;
+    }
+
+    .rebanhos-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .rebanhos-content {
+        padding: 18px;
+    }
+
+    .rebanho-card__actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 620px) {
+    .rebanho-form-container {
+        padding: 22px 18px;
+        border-radius: 18px;
+    }
+
+    .rebanho-form {
+        grid-template-columns: 1fr;
+    }
+
+    .rebanho-form-actions {
+        grid-column: auto;
+        flex-direction: column;
+    }
+
+    .rebanho-form-actions .rebanhos-button {
+        width: 100%;
+    }
+
+    .rebanhos-button--hero {
+        width: 100%;
+    }
+}
