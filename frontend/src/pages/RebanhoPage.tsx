@@ -206,7 +206,14 @@ export function RebanhoPage() {
                                     <h2>{rebanho.nome}</h2>
 
                                     <div className="rebanho-card__actions">
-                                        <Link className="rebanhos-button rebanhos-button--secondaty" to={`/propriedades/${propriedadeId}/rebanhos/${rebanho.id}/editar`}>
+                                        <Link
+                                            className="rebanhos-button rebanhos-button--animals"
+                                            to={`/propriedades/${propriedadeId}/rebanhos/${rebanho.id}/animais`}
+                                        >
+                                            Ver animais
+                                        </Link>
+
+                                        <Link className="rebanhos-button rebanhos-button--secondary" to={`/propriedades/${propriedadeId}/rebanhos/${rebanho.id}/editar`}>
                                             Editar
                                         </Link>
 

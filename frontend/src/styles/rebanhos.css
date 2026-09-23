@@ -270,10 +270,21 @@
 
 .rebanho-card__actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr 1fr;
     gap: 10px;
     padding-top: 17px;
     border-top: 1px solid #edf1ee;
+}
+
+.rebanhos-button--animals {
+    border-color: #95bd9f;
+    background: #2f7146;
+    color: #fff;
+}
+
+.rebanhos-button--animals:hover {
+    border-color: #255e39;
+    background: #255e39;
 }
 
 .rebanhos-button--hero {
