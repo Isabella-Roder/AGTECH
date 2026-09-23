@@ -12,7 +12,6 @@ import com.AGTECH.backend.exception.RegraDeNegocioException;
 import com.AGTECH.backend.models.Animal;
 import com.AGTECH.backend.models.Rebanho;
 import com.AGTECH.backend.repository.AnimalRepository;
-import com.AGTECH.backend.repository.PropriedadeRuralRepository;
 import com.AGTECH.backend.repository.RebanhoRepository;
 
 @Service 
@@ -20,18 +19,15 @@ public class AnimalService {
     
     private final AnimalRepository animalRepository;
     private final RebanhoRepository rebanhoRepository;
-    private final PropriedadeRuralRepository propriedadeRuralRepository;
     private final UsuarioPropriedadeAcessoService acessoService;
 
     public AnimalService(
         AnimalRepository animalRepository,
         RebanhoRepository rebanhoRepository,
-        PropriedadeRuralRepository propriedadeRuralRepository,
         UsuarioPropriedadeAcessoService acessoService
     ) {
         this.animalRepository = animalRepository;
         this.rebanhoRepository = rebanhoRepository;
-        this.propriedadeRuralRepository = propriedadeRuralRepository;
         this.acessoService = acessoService;
     }
 
