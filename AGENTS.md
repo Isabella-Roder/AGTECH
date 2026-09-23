@@ -416,12 +416,21 @@ módulo financeiro entrar em escopo.
 
 Somente se estiver no escopo escolhido naquele momento:
 
--   rebanhos;
--   animais;
--   movimentações;
--   produção;
--   alimentação;
--   histórico.
+-   rebanhos; ✅ concluído (entidade `Rebanho` com `EspecieAnimal`,
+    ativar/desativar, migration V16, repository, service, controller,
+    DTOs, testes)
+-   animais; ✅ concluído (entidade `Animal` com `SexoAnimal` e data de
+    nascimento opcional, migration V17, autorização em cascata animal →
+    rebanho → propriedade, repository, service, controller, DTOs,
+    testes)
+-   movimentações; pendente
+-   produção; pendente
+-   alimentação; pendente
+-   histórico. pendente
+
+V0.5 com a base concluída: rebanhos e animais estão implementados e
+testados; movimentações, produção, alimentação e histórico ficam para
+quando houver requisito concreto.
 
 ## V0.6 --- Financeiro
 
