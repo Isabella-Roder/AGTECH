@@ -66,6 +66,17 @@ class TratadorGlobalDeErrosTest {
                 .andExpect(jsonPath("$.mensagem").value(org.hamcrest.Matchers.containsString("Nome é obrigatório")));
     }
 
+    @Test
+    void deveRetornar400ParaCorpoMalformado() throws Exception {
+        mockMvc.perform(post("/teste/validacao")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"nome\":"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.mensagem").value("Corpo da requisição inválido ou malformado."))
+                .andExpect(jsonPath("$.caminho").value("/teste/validacao"));
+    }
+
     @RestController
     private static class ControladorParaTeste {
 
